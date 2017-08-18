@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<ehcache updateCheck="false" name="cacheManage">
+	<!-- http://ehcache.org/ehcache.xml -->
+	<!--maxElementsInMemory 缓存最大格式-->
+	<!--eternal 对象是否永久有效-->
+	<!--timeToIdleSeconds 缓存闲置多少秒后销毁-->
+	<!--timeToLiveSeconds 缓存存活多少秒后销毁-->
+	<!--overflowToDisk 当内存中对象数量达到maxElementsInMemory时，Ehcache将会对象写到磁盘中-->
+	<!--diskPersistent 是否缓存虚拟机重启期数据-->
+	<!--diskExpiryThreadIntervalSeconds 磁盘失效线程运行时间间隔-->
+	
+	<defaultCache 
+		maxElementsInMemory="10000" 
+		eternal="false"
+		timeToIdleSeconds="1800" 
+		timeToLiveSeconds="1800" 
+		overflowToDisk="false"
+		diskPersistent="false" 
+		diskExpiryThreadIntervalSeconds="120" />
+</ehcache>

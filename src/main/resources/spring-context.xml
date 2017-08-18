@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/aop 
+						http://www.springframework.org/schema/aop/spring-aop.xsd
+						http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context.xsd
+						http://www.springframework.org/schema/tx 
+						http://www.springframework.org/schema/tx/spring-tx.xsd">
+	<!-- 启动组件扫描，排除@Controller组件，该组件由SpringMVC配置文件扫描 -->
+	<context:component-scan base-package="net.ssm.**.web.service">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+	<!-- 读取属性文件 -->
+	<context:property-placeholder ignore-unresolvable="true" local-override="true" location="classpath:db.properties" />
+	<!-- 阿里 druid数据库连接池 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<!-- 数据库基本信息配置 -->
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<!-- 配置监控统计拦截的filters -->
+		<property name="filters" value="stat" />
+		<!-- 初始化连接数量 -->
+		<property name="initialSize" value="10" />
+		<!-- 最小空闲连接数 -->
+		<property name="minIdle" value="10" />
+		<!-- 最大并发连接数 -->
+		<property name="maxActive" value="500" />
+		<!-- 获取连接等待超时的时间-单位毫秒 	30秒-->
+		<property name="maxWait" value="30000" />
+		<!-- 间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒  1分钟-->
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 	5分钟 -->
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+		<!--超过时间限制是否回收 -->
+		<property name="removeAbandoned" value="true" />
+		<!-- 超时时间；单位为秒。 超时5分钟-->  
+		<property name="removeAbandonedTimeout" value="300" />
+		<!-- 关闭abanded连接时输出错误日志 -->
+		<property name="logAbandoned" value="true" /> 
+		<!--建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。 -->
+		<property name="testWhileIdle" value="true" />
+		<!-- 检测连接是否可用 -->
+		<property name="validationQuery" value="SELECT * FROM DUAL" />
+		<!-- 申请连接时执行validationQuery检测连接是否有效，配置为true会降低性能 -->
+		<property name="testOnBorrow" value="true" />
+		<!-- 归还连接时执行validationQuery检测连接是否有效，配置为true会降低性能 -->
+		<property name="testOnReturn" value="false" />
+		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+		<property name="poolPreparedStatements" value="true" />
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="20" />		
+	</bean>
+	
+	<!--spring统一异常处理-->
+	<bean id="exceptionHandler" class="net.ssm.core.MyExceptionHandler" />
+	
+	<!--适用于所有环境的FactoryBean，能全面控制EntityManagerFactory配置,如指定Spring定义的DataSource等等。-->
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<!--使用spring定义的数据源-->
+		<property name="dataSource" ref="dataSource" />
+		<!--扫描实体类包名-->
+		<property name="packagesToScan" value="net.ssm.**.pojo" />
+		<!--设置JPA的实现-->
+		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
+		<property name="jpaProperties">
+			<props>
+				<!--是否显示SQL，日志系统debug级别下打印所有生成的SQL-->
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+	<!--Jpa的HibernateJpaVendorAdapter实现-->
+	<bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+		<!--设置Hibernate是否自动生成DDL-->
+		<property name="generateDdl" value="true" />
+		<!--用于指定数据库类型-->
+		<property name="database" value="MYSQL" />
+	</bean>
+	
+	<!--spring事务管理器 -->
+	<bean name="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<!--设置spring定义的数据源-->
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<!-- 事务通知 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="select*" read-only="true" />
+			<tx:method name="find*" read-only="true" />
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="*" />
+		</tx:attributes>
+	</tx:advice>
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	<!-- 事物处理 -->
+	<aop:config>
+		<aop:pointcut id="pc" expression="execution(* *..service*..*(..))" />
+		<aop:advisor pointcut-ref="pc" advice-ref="txAdvice" />
+	</aop:config>
+	
+	<!--用户授权信息Cache, 采用EhCache 
+	<bean id="shiroEhcacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManagerConfigFile" value="classpath:ehcache-Manager-Shiro.xml" />
+	</bean>-->
+	<!-- 安全管理器
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="shiroDbRealm" />
+		<property name="cacheManager" ref="shiroEhcacheManager" />
+        <property name="sessionManager" ref="sessionManager"></property>  
+	</bean> -->
+	<!-- Shiro Filter 
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="/home/index" />
+		<property name="filterChainDefinitions">
+			<value>
+				/** = anon
+			</value>
+		</property>
+	</bean>-->
+
+	<!-- 相当于调用SecurityUtils.setSecurityManager(securityManager) 
+	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="staticMethod" value="org.apache.shiro.SecurityUtils.setSecurityManager" />
+		<property name="arguments" ref="securityManager" />
+	</bean>-->
+	<!-- Shiro生命周期处理器 
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+	
+	<bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.MemorySessionDAO"></bean>  
+      
+    <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">    
+        <constructor-arg name="name" value="SHRIOSESSIONID"/>    
+    </bean>    -->  
+      
+    <!-- 配置shiro session 的一个管理器 
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">  
+        <property name="sessionDAO" ref="sessionDAO"></property>  
+        <property name="globalSessionTimeout" value="1800000"/>    
+	    <property name="deleteInvalidSessions" value="true"/>    
+	    <property name="sessionValidationSchedulerEnabled" value="true"/>    
+	    <property name="sessionValidationInterval" value="1800000"/>    
+	    <property name="sessionIdCookie" ref="sessionIdCookie"/>    
+    </bean>-->  
+</beans>

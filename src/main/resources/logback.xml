@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/2002/xmlspec/dtd/2.10/xmlspec.dtd">
+<configuration debug="true">
+	<property name="APP_NAME" value="ssmLog" />
+	<!--实际上线时需要根据日志保存位置进行保存 -->
+	<property name="LOG_HOME" value="c:/${APP_NAME}" />
+
+	<!-- 日志输出格式 -->
+	<property name="ENCODER_PATTERN"
+		value="%d{yyyy-MM-dd  HH:mm:ss.SSS} [%thread] %-5level %logger{80} - %msg%n" />
+	<contextName>${APP_NAME}</contextName>
+
+	<!-- 控制台日志：输出全部日志到控制台 -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>INFO</level>
+		</filter>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>${ENCODER_PATTERN}</Pattern>
+		</encoder>
+	</appender>
+
+	<!-- 文件日志：输出全部日志到文件保存15天的 -->
+	<appender name="FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/logFile/%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>15</maxHistory>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>${ENCODER_PATTERN}</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<!-- 错误日志：用于将错误日志输出到独立文件保存15天 -->
+	<appender name="ERROR_FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/error/%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>15</maxHistory>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>${ENCODER_PATTERN}</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>WARN</level>
+		</filter>
+	</appender>
+	<!--操作日志INFO-->
+	<appender name="INFO_FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/info/%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>15</maxHistory>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>${ENCODER_PATTERN}</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>INFO</level>
+		</filter>
+	</appender>
+	<root>
+		<level value="DEBUG" />
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE" />
+		<appender-ref ref="ERROR_FILE" />
+		<appender-ref ref="INFO_FILE" />
+	</root>
+	 <!--通过<logger></logger>的定义可以将各个包中的类日志输出到不同的日志文件中 <appender-ref ref="STDOUT" />-->  
+    <logger name="org.springframework">  
+        <level value="ERROR" />  
+    </logger>  
+      
+    <logger name="org.mybatis.spring">  
+        <level value="ERROR" />  
+    </logger>  
+</configuration>

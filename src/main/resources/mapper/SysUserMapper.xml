@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.ssm.system.web.dao.SysUserMapper">
+  <resultMap id="BaseResultMap" type="net.ssm.system.web.pojo.SysUser">
+    <id column="userid" jdbcType="BIGINT" property="userid" />
+    <result column="username" jdbcType="TIMESTAMP" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    userid,username,password,email,mobile
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where userid = #{id,jdbcType=BIGINT}
+  </select>
+</mapper>

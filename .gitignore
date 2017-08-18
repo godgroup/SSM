@@ -1,0 +1,12 @@
+.idea
+.classpath
+.project
+.settings
+.externalToolBuilders
+*.iml
+*.eml
+target
+*.log
+*.log.*
+*.cache
+*.lock

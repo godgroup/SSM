@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+	<!-- 配置mybatis -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="typeAliasesPackage" value="net.ssm.**.web.pojo" />
+		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
+		<property name="plugins">
+			<array>
+				<bean class="com.github.pagehelper.PageHelper">
+					<!-- 这里的几个配置主要演示如何使用，如果不理解，一定要去掉下面的配置 -->
+					<property name="properties">
+						<value>
+							dialect=oracle
+							<!-- 该参数默认为false -->
+							<!-- 设置为true时，会将RowBounds第一个参数offset当成pageNum页码使用 -->
+							<!-- 和startPage中的pageNum效果一样 -->
+							offsetAsPageNum=true
+							<!-- 该参数默认为false -->
+							<!-- 设置为true时，使用RowBounds分页会进行count查询 -->
+							rowBoundsWithCount=true
+							<!-- 设置为true时，如果pageSize=0或者RowBounds.limit = 0就会查询出全部的结果 -->
+							<!-- （相当于没有执行分页查询，但是返回结果仍然是Page类型） -->
+							pageSizeZero=true
+							<!-- 3.3.0版本可用 - 分页参数合理化，默认false禁用 -->
+							<!-- 启用合理化时，如果pageNum<1会查询第一页，如果pageNum>pages会查询最后一页 -->
+							<!-- 禁用合理化时，如果pageNum<1或pageNum>pages会返回空数据 -->
+							reasonable=false
+						</value>
+					</property>
+				</bean>
+			</array>
+		</property>
+		<!-- mapper扫描 -->
+		<property name="mapperLocations" value="classpath*:mapper/*.xml"></property>
+	</bean>
+	
+	<!-- 根据MapperDao生成Dao对象实例 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="net.ssm.**.web.dao"></property>
+	</bean>
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+</beans>
