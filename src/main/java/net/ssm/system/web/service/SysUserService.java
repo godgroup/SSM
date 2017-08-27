@@ -1,5 +1,7 @@
 package net.ssm.system.web.service;
 
+import java.util.List;
+
 import net.ssm.system.web.pojo.SysUser;
 
 public interface SysUserService {
@@ -9,4 +11,8 @@ public interface SysUserService {
 	 * @return
 	 */
 	String GetUserName(Long id);
+	
+	
+
+	List<SysUser> GetUser();
 }

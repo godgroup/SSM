@@ -1,5 +1,8 @@
 package net.ssm.system.web.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -17,7 +20,14 @@ public class SysUserServiceImpl implements SysUserService{
 	public String GetUserName(Long id) {
 		SysUser sysUser = sysUserMapper.selectByPrimaryKey(id);
 		
-		return sysUser.getUsername();
+		return sysUser.getName();
+	}
+
+	@Override
+	public List<SysUser> GetUser() {
+		List<SysUser>  userList = sysUserMapper.selectSysUser();
+		
+		return userList;
 	}
 
 }

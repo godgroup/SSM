@@ -2,19 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.ssm.system.web.dao.SysUserMapper">
   <resultMap id="BaseResultMap" type="net.ssm.system.web.pojo.SysUser">
-    <id column="userid" jdbcType="BIGINT" property="userid" />
-    <result column="username" jdbcType="TIMESTAMP" property="username" />
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="login_name" jdbcType="TIMESTAMP" property="login_name" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="create_at" jdbcType="DATE" property="create_at" />  
   </resultMap>
   <sql id="Base_Column_List">
-    userid,username,password,email,mobile
+    id,login_name,password,email,mobile,create_at
   </sql>
   <select id="selectByPrimaryKey" parameterType="Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from sys_user
-    where userid = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+    <select id="selectSysUser" parameterType="Long" resultType="net.ssm.system.web.pojo.SysUser">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    
   </select>
 </mapper>

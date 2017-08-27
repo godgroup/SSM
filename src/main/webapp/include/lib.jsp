@@ -5,20 +5,21 @@
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}/" />
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-<meta http-equiv="x-ua-compatible" content="IE=edge">
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<meta http-equiv="Cache-Control" content="no-cache,no-store, must-revalidate" />
-<meta http-equiv="Pragma" content="no-cache" />
-<meta http-equiv="Expires" content="-1" />
-<link href="${ctx}static/BootstrapH+4.1.0/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
-<link href="${ctx}static/BootstrapH+4.1.0/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
-<link href="${ctx}static/BootstrapH+4.1.0/css/animate.min.css" rel="stylesheet">
-<link href="${ctx}static/BootstrapH+4.1.0/css/style.min862f.css?v=4.1.0" rel="stylesheet">
-<script src="${ctx}static/BootstrapH+4.1.0/js/jquery.min.js?v=2.1.4"></script>
-<script src="${ctx}static/BootstrapH+4.1.0/js/jquery.form.js"></script>
-<script src="${ctx}static/BootstrapH+4.1.0/js/bootstrap.min.js?v=3.3.6"></script>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Access-Control-Allow-Origin" content="*">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+<link rel="icon" href="favicon.ico">
+<link rel="stylesheet" href="${ctx}static/layui/css/layui.css" media="all" />
+<link rel="stylesheet" href="//at.alicdn.com/t/font_tnyc012u2rlwstt9.css" media="all" />
+<link rel="stylesheet" href="${ctx}static/css/main.css" media="all" />
+
+<script type="text/javascript" src="${ctx}static/layui/layui.js"></script>
+<script type="text/javascript" src="${ctx}static/js/leftNav.js"></script>
+<script type="text/javascript" src="${ctx}static/js/index.js"></script>
 <script language="javascript">
 	var ctx = "${ctx}";
 </script>

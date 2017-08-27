@@ -1,6 +1,7 @@
 package net.ssm.system.web.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -16,9 +17,6 @@ import net.ssm.system.web.service.SysUserService;
 public class HomeController {
 	@Resource
 	private SysUserService sysUserService;
-	
-	@RequestMapping("index")
-	public void index(){}
 	
 	@RequestMapping("getUserName")
 	@ResponseBody
