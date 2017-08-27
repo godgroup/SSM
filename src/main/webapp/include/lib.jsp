@@ -20,6 +20,6 @@
 <script type="text/javascript" src="${ctx}static/layui/layui.js"></script>
 <script type="text/javascript" src="${ctx}static/js/leftNav.js"></script>
 <script type="text/javascript" src="${ctx}static/js/index.js"></script>
-<script language="javascript">
+<script type="text/javascript">
 	var ctx = "${ctx}";
 </script>
