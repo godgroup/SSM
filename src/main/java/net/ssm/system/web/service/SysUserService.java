@@ -15,4 +15,12 @@ public interface SysUserService {
 	
 
 	List<SysUser> GetUser();
+	
+	/**
+	 * 登录验证
+	 * @param loginName 登录名
+	 * @param pswd 密码，加密后的密文
+	 * @return
+	 */
+	SysUser LogonValidate(String loginName,String pswd);
 }

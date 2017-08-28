@@ -24,4 +24,11 @@
     from sys_user
     
   </select>
+  
+  <select id="selectByNameAndPswd" parameterType="String" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from sys_user
+  	where login_name=#{0,jdbcType=VARCHAR} and password=#{1,jdbcType=VARCHAR}
+  </select>
 </mapper>

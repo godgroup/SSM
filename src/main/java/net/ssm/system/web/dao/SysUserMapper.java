@@ -12,4 +12,12 @@ public interface SysUserMapper {
 	 */
 	SysUser selectByPrimaryKey(Long id);
 	List<SysUser>  selectSysUser();
+	
+	/**
+	 * 通过登录名和密码获取用户
+	 * @param loginName 登录名
+	 * @param loginPswd 密码
+	 * @return
+	 */
+	SysUser selectByNameAndPswd(String loginName,String loginPswd);
 }
