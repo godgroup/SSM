@@ -1,5 +1,8 @@
 package net.ssm.core;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
@@ -39,9 +42,13 @@ public class ShiroRealm extends AuthorizingRealm{
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		//获取当前用户
 		SysUser sysUser  = (SysUser)SecurityUtils.getSubject().getSession().getAttribute("user");
-
+		Set<String> menuSet=new HashSet<String>();
+		menuSet.add("/home/index");
+		menuSet.add("/admin/userlist");
+		menuSet.add("/admin/userlist2");
 		//根据用户获取角色对应的权限添加进去，由于还没有数据所以直接返回一个空的
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+		authorizationInfo.setStringPermissions(menuSet);
 		return authorizationInfo;
 	}
 	

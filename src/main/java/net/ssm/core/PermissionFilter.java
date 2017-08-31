@@ -54,7 +54,7 @@ public class PermissionFilter extends AccessControlFilter {
 	            WebUtils.issueRedirect(request, response, "/admin/login");  
 	        } else {  
 	           
-	                WebUtils.issueRedirect(request, response, "/admin/login");  
+	                WebUtils.issueRedirect(request, response, "/common/unauthorize");  
 	            
 	        }  
 		return Boolean.FALSE;

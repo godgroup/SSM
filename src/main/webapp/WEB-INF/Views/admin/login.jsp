@@ -18,7 +18,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="format-detection" content="telephone=no">
-<link rel="icon" href="favicon.ico">
+
 
 <script type="text/javascript" src="${ctx}static/BootstrapH+4.1.0/js/jquery.min.js"></script>
 <script type="text/javascript" src="${ctx}static/BootstrapH+4.1.0/js/jquery.form.js"></script>

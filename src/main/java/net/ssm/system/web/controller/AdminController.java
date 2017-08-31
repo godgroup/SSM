@@ -39,7 +39,31 @@ public class AdminController {
         return modelAndView;
 		
 	} 
-	
+	@RequestMapping("userlist2")
+	public ModelAndView index2(){
+		 List<SysUser> itemsList = sysUserService.GetUser();
+		
+
+        ModelAndView modelAndView=new ModelAndView();
+        modelAndView.addObject("itemsList",itemsList);
+        //指定逻辑视图名itemsList.jsp
+        modelAndView.setViewName("admin/userlist");
+
+        return modelAndView;
+		
+	} @RequestMapping("userlist3")
+	public ModelAndView index3(){
+		 List<SysUser> itemsList = sysUserService.GetUser();
+		
+
+       ModelAndView modelAndView=new ModelAndView();
+       modelAndView.addObject("itemsList",itemsList);
+       //指定逻辑视图名itemsList.jsp
+       modelAndView.setViewName("admin/userlist");
+
+       return modelAndView;
+		
+	} 
 	/**
 	 * 登录页面
 	 */

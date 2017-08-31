@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xxm.mapper.SysRoleMenuMapper" >
+  <resultMap id="BaseResultMap" type="net.ssm.system.web.pojo.SysRoleMenu" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <id column="sys_role_id" property="sys_role_id" jdbcType="BIGINT" />
+    <id column="sys_menu_id" property="sys_menu_id" jdbcType="BIGINT" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="net.ssm.system.web.pojo.SysRoleMenu" >
+    delete from sys_role_menu
+    where id = #{id,jdbcType=BIGINT}
+      and sys_role_id = #{sys_role_id,jdbcType=BIGINT}
+      and sys_menu_id = #{sys_menu_id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="net.ssm.system.web.pojo.SysRoleMenu" >
+    insert into sys_role_menu (id, sys_role_id, sys_menu_id
+      )
+    values (#{id,jdbcType=BIGINT}, #{sys_role_id,jdbcType=BIGINT}, #{sys_menu_id,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="net.ssm.system.web.pojo.SysRoleMenu" >
+    insert into sys_role_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="sys_role_id != null" >
+        sys_role_id,
+      </if>
+      <if test="sys_menu_id != null" >
+        sys_menu_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="sys_role_id != null" >
+        #{sys_role_id,jdbcType=BIGINT},
+      </if>
+      <if test="sys_menu_id != null" >
+        #{sys_menu_id,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+</mapper>

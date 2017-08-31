@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xxm.mapper.SysUserRoleMapper" >
+  <resultMap id="BaseResultMap" type="net.ssm.system.web.pojo.SysUserRole" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <id column="sys_user_id" property="sys_user_id" jdbcType="BIGINT" />
+    <id column="sys_role_id" property="sys_role_id" jdbcType="BIGINT" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="net.ssm.system.web.pojo.SysUserRole" >
+    delete from sys_user_role
+    where id = #{id,jdbcType=BIGINT}
+      and sys_user_id = #{sys_user_id,jdbcType=BIGINT}
+      and sys_role_id = #{sys_role_id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="net.ssm.system.web.pojo.SysUserRole" >
+    insert into sys_user_role (id, sys_user_id, sys_role_id
+      )
+    values (#{id,jdbcType=BIGINT}, #{sys_user_id,jdbcType=BIGINT}, #{sys_role_id,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="net.ssm.system.web.pojo.SysUserRole" >
+    insert into sys_user_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="sys_user_id != null" >
+        sys_user_id,
+      </if>
+      <if test="sys_role_id != null" >
+        sys_role_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="sys_user_id != null" >
+        #{sys_user_id,jdbcType=BIGINT},
+      </if>
+      <if test="sys_role_id != null" >
+        #{sys_role_id,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+</mapper>

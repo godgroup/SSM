@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xxm.mapper.SysRoleMapper" >
+  <resultMap id="BaseResultMap" type="net.ssm.system.web.pojo.SysRole" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="create_by" property="create_by" jdbcType="VARCHAR" />
+    <result column="create_at" property="create_at" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="update_by" jdbcType="VARCHAR" />
+    <result column="update_at" property="update_at" jdbcType="TIMESTAMP" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, create_by, create_at, update_by, update_at, remarks
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_role
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_role
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="net.ssm.system.web.pojo.SysRole" >
+    insert into sys_role (id, name, create_by, 
+      create_at, update_by, update_at, 
+      remarks)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{create_by,jdbcType=VARCHAR}, 
+      #{create_at,jdbcType=TIMESTAMP}, #{update_by,jdbcType=VARCHAR}, #{update_at,jdbcType=TIMESTAMP}, 
+      #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.ssm.system.web.pojo.SysRole" >
+    insert into sys_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="create_by != null" >
+        create_by,
+      </if>
+      <if test="create_at != null" >
+        create_at,
+      </if>
+      <if test="update_by != null" >
+        update_by,
+      </if>
+      <if test="update_at != null" >
+        update_at,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="create_by != null" >
+        #{create_by,jdbcType=VARCHAR},
+      </if>
+      <if test="create_at != null" >
+        #{create_at,jdbcType=TIMESTAMP},
+      </if>
+      <if test="update_by != null" >
+        #{update_by,jdbcType=VARCHAR},
+      </if>
+      <if test="update_at != null" >
+        #{update_at,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.ssm.system.web.pojo.SysRole" >
+    update sys_role
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="create_by != null" >
+        create_by = #{create_by,jdbcType=VARCHAR},
+      </if>
+      <if test="create_at != null" >
+        create_at = #{create_at,jdbcType=TIMESTAMP},
+      </if>
+      <if test="update_by != null" >
+        update_by = #{update_by,jdbcType=VARCHAR},
+      </if>
+      <if test="update_at != null" >
+        update_at = #{update_at,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.ssm.system.web.pojo.SysRole" >
+    update sys_role
+    set name = #{name,jdbcType=VARCHAR},
+      create_by = #{create_by,jdbcType=VARCHAR},
+      create_at = #{create_at,jdbcType=TIMESTAMP},
+      update_by = #{update_by,jdbcType=VARCHAR},
+      update_at = #{update_at,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

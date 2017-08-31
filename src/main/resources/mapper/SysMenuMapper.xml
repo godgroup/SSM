@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xxm.mapper.SysMenuMapper" >
+  <resultMap id="BaseResultMap" type="net.ssm.system.web.pojo.SysMenu" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="parent_id" property="parent_id" jdbcType="BIGINT" />
+    <result column="type" property="type" jdbcType="CHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="href" property="href" jdbcType="VARCHAR" />
+    <result column="target" property="target" jdbcType="VARCHAR" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="CHAR" />
+    <result column="permission" property="permission" jdbcType="VARCHAR" />
+    <result column="create_at" property="create_at" jdbcType="TIMESTAMP" />
+    <result column="update_at" property="update_at" jdbcType="TIMESTAMP" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, parent_id, type, name, href, target, icon, sort, status, permission, create_at, 
+    update_at, remarks
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_menu
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_menu
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="net.ssm.system.web.pojo.SysMenu" >
+    insert into sys_menu (id, parent_id, type, 
+      name, href, target, 
+      icon, sort, status, permission, 
+      create_at, update_at, remarks
+      )
+    values (#{id,jdbcType=BIGINT}, #{parent_id,jdbcType=BIGINT}, #{type,jdbcType=CHAR}, 
+      #{name,jdbcType=VARCHAR}, #{href,jdbcType=VARCHAR}, #{target,jdbcType=VARCHAR}, 
+      #{icon,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{status,jdbcType=CHAR}, #{permission,jdbcType=VARCHAR}, 
+      #{create_at,jdbcType=TIMESTAMP}, #{update_at,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="net.ssm.system.web.pojo.SysMenu" >
+    insert into sys_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="parent_id != null" >
+        parent_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="href != null" >
+        href,
+      </if>
+      <if test="target != null" >
+        target,
+      </if>
+      <if test="icon != null" >
+        icon,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="permission != null" >
+        permission,
+      </if>
+      <if test="create_at != null" >
+        create_at,
+      </if>
+      <if test="update_at != null" >
+        update_at,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="parent_id != null" >
+        #{parent_id,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="href != null" >
+        #{href,jdbcType=VARCHAR},
+      </if>
+      <if test="target != null" >
+        #{target,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="permission != null" >
+        #{permission,jdbcType=VARCHAR},
+      </if>
+      <if test="create_at != null" >
+        #{create_at,jdbcType=TIMESTAMP},
+      </if>
+      <if test="update_at != null" >
+        #{update_at,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.ssm.system.web.pojo.SysMenu" >
+    update sys_menu
+    <set >
+      <if test="parent_id != null" >
+        parent_id = #{parent_id,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=CHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="href != null" >
+        href = #{href,jdbcType=VARCHAR},
+      </if>
+      <if test="target != null" >
+        target = #{target,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="permission != null" >
+        permission = #{permission,jdbcType=VARCHAR},
+      </if>
+      <if test="create_at != null" >
+        create_at = #{create_at,jdbcType=TIMESTAMP},
+      </if>
+      <if test="update_at != null" >
+        update_at = #{update_at,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.ssm.system.web.pojo.SysMenu" >
+    update sys_menu
+    set parent_id = #{parent_id,jdbcType=BIGINT},
+      type = #{type,jdbcType=CHAR},
+      name = #{name,jdbcType=VARCHAR},
+      href = #{href,jdbcType=VARCHAR},
+      target = #{target,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      status = #{status,jdbcType=CHAR},
+      permission = #{permission,jdbcType=VARCHAR},
+      create_at = #{create_at,jdbcType=TIMESTAMP},
+      update_at = #{update_at,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
