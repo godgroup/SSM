@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hp.hpl.sparta.Document.Index;
+
 import net.ssm.system.web.service.SysUserService;
 
 @Controller
@@ -17,6 +19,9 @@ import net.ssm.system.web.service.SysUserService;
 public class HomeController {
 	@Resource
 	private SysUserService sysUserService;
+	
+	@RequestMapping("index")
+	public void index(){}
 	
 	@RequestMapping("getUserName")
 	@ResponseBody

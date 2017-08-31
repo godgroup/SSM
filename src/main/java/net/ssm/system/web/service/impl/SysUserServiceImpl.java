@@ -30,4 +30,9 @@ public class SysUserServiceImpl implements SysUserService{
 		return userList;
 	}
 
+	@Override
+	public SysUser LogonValidate(String loginName, String pswd) {
+		return sysUserMapper.selectByNameAndPswd(loginName, pswd);
+	}
+
 }
