@@ -10,3 +10,4 @@ target
 *.log.*
 *.cache
 *.lock
+db.properties
