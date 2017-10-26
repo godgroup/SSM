@@ -1,5 +1,7 @@
 package net.ssm.system.web.dao;
 
+import java.util.List;
+
 import net.ssm.system.web.pojo.SysMenu;
 
 public interface SysMenuMapper {
@@ -14,4 +16,6 @@ public interface SysMenuMapper {
     int updateByPrimaryKeySelective(SysMenu record);
 
     int updateByPrimaryKey(SysMenu record);
+    
+    List<SysMenu> selectSysMenuList();
 }
