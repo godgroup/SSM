@@ -37,11 +37,12 @@ public class PermissionFilter extends AccessControlFilter {
 		if(null != uri && uri.startsWith(basePath)){
 			uri = uri.replaceFirst(basePath, "");
 		}
-		if(subject.isPermitted(uri)){
-			return Boolean.TRUE;
-		}
-		
-		return Boolean.FALSE;
+		return Boolean.TRUE;
+//		if(subject.isPermitted(uri)){
+//			return Boolean.TRUE;
+//		}
+//		
+//		return Boolean.FALSE;
 	}
 
 	@Override

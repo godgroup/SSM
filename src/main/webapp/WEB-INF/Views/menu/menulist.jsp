@@ -17,7 +17,7 @@
 			<a class="layui-btn search_btn">查询</a>
 		</div>
 		<div class="layui-inline">
-			<a class="layui-btn layui-btn-normal newsAdd_btn">添加</a>
+			<a class="layui-btn layui-btn-normal linksAdd_btn">添加</a>
 		</div>
 		
 		<div class="layui-inline">
@@ -80,7 +80,6 @@
 		</table>
 	</div>
 	<div id="page"></div>
-	
-
+	<script type="text/javascript" src="${ctx}static/page/links/linksList.js"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 layui.config({
-	base : "js/"
+	base : "/SSM/static/js/"
 }).use(['form','layer','jquery','laypage'],function(){
 	var form = layui.form(),
 		layer = parent.layer === undefined ? layui.layer : parent.layer,
@@ -90,7 +90,7 @@ layui.config({
 		var index = layui.layer.open({
 			title : "添加友情链接",
 			type : 2,
-			content : "linksAdd.html",
+			content : "addMenu",
 			success : function(layero, index){
 				setTimeout(function(){
 					layui.layer.tips('点击此处返回友链列表', '.layui-layer-setwin .layui-layer-close', {

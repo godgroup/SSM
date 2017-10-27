@@ -30,4 +30,6 @@ public class MenuController {
         return modelAndView;
 		
 	} 
+	@RequestMapping("addMenu")
+	public void addMenu(){}
 }
