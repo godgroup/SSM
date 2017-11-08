@@ -22,15 +22,6 @@
 						<value>application/json</value>
 					</list>
 				</property>
-				<property name="serializationInclusion">  
-                            <value  
-                                type="com.fasterxml.jackson.annotation.JsonInclude.Include">NON_NULL</value>  
-                </property>  
-				<property name="features">
-					<list>
-						<value>QuoteFieldNames</value>
-					</list>
-				</property>
 			</bean>
 			<bean id="stringHttpMessageConverter" class="org.springframework.http.converter.StringHttpMessageConverter" />
 		</mvc:message-converters>

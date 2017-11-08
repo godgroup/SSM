@@ -13,9 +13,18 @@ layui.config({
  	var addLinksArray = [],addLinks;
  	layui.treeselect(
             {
+            	//[{"children":[{"id":2,"name":"用户列表","spread":false}],"id":1,"name":"用户管理","spread":false} ],
+            	// [{ //节点
+//	                    name: '父节点1'
+//	                    ,children: [{
+//	                      name: '子节点11'
+//	                    },{
+//	                      name: '子节点12'
+//	                    }]
+//	                  }],
                 elem: "#treeselecttest11",
-                data: "/SSM/menu/getNodes" ,
-                method: "GET"
+                data: "/SSM/menu/getNodes",
+  	            method: "GET"
             });
  	
  	form.on("submit(addLinks)",function(data){

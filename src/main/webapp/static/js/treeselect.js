@@ -180,6 +180,7 @@ layui.define(['layer', 'tree'], function (exports) {
                 dataType: "json",
                 type: !options.method ? "POST" : options.method,
                 success: function (d) {
+                	
                     options.data = d;
                    treeSelect.init(elem);
                }
