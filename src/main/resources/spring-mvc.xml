@@ -22,9 +22,12 @@
 						<value>application/json</value>
 					</list>
 				</property>
+				<property name="serializationInclusion">  
+                            <value  
+                                type="com.fasterxml.jackson.annotation.JsonInclude.Include">NON_NULL</value>  
+                </property>  
 				<property name="features">
 					<list>
-						<value>WriteMapNullValue</value>
 						<value>QuoteFieldNames</value>
 					</list>
 				</property>

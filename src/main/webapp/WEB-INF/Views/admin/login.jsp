@@ -20,9 +20,9 @@
 <meta name="format-detection" content="telephone=no">
 
 
-<script type="text/javascript" src="${ctx}static/BootstrapH+4.1.0/js/jquery.min.js"></script>
-<script type="text/javascript" src="${ctx}static/BootstrapH+4.1.0/js/jquery.form.js"></script>
-<script type="text/javascript" src="${ctx}static/BootstrapH+4.1.0/js/plugins/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="${ctx}static/js/jquery.min.js"></script>
+<script type="text/javascript" src="${ctx}static/js/jquery.form.js"></script>
+<script type="text/javascript" src="${ctx}static/js/jquery.validate.min.js"></script>
 <script type="text/javascript">
 	var ctx = "${ctx}";
 </script>

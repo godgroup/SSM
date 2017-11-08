@@ -61,7 +61,7 @@
 						<td >${item.id }</td>
 						<td>${item.name }</td>
 						<td>${item.href}</td>
-						<td>${item.target}</td>
+						<td>${item.type}</td>
 						<td>${item.remarks}</td>
 						<td><fmt:formatDate value="${item.create_at}"
 								pattern="yyyy-MM-dd HH:mm:ss" /></td>

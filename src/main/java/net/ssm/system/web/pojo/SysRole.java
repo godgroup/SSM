@@ -3,6 +3,7 @@ package net.ssm.system.web.pojo;
 import java.util.Date;
 
 public class SysRole {
+	
     private Long id;
 
     private String name;

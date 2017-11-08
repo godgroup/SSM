@@ -20,5 +20,9 @@ public class SysMenuServiceImpl implements SysMenuService {
 		
 		return	sysMenuMapper.selectSysMenuList();
 	}
+	@Override
+	public int insert(SysMenu menu) {
+		return	sysMenuMapper.insert(menu);
+	}
 
 }

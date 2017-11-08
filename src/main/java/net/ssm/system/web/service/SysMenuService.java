@@ -11,4 +11,6 @@ public interface SysMenuService {
 	 * @return
 	 */
 	List<SysMenu> GetMenuList();
+	
+	int insert(SysMenu menu);
 }
