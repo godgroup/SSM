@@ -1,37 +1,42 @@
-/**
- * treeSelect组件
- */
-layui.define(['layer', 'tree'], function (exports) {
+//treeSelect组件
+layui.define('tree', function (exports) {
     "use strict";
 
     var _MOD = 'treeselect',
-        layer = layui.layer,
-        tree = layui.tree,
+        treeData = {}, //全局树形数据缓存
         $ = layui.jquery,
         hint = layui.hint(),
-        THIS = 'layui-this',
-        SHOW = 'layui-show',
-        HIDE = 'layui-hide',
         DISABLED = 'layui-disabled',
-        dom = $(document),
-        win = $(window);
-    var TreeSelect = function (options) {
-        this.options = options;
-        this.v = '1.0.0';
-    };
+        win = $(window),
+        TreeSelect = function() {
+            this.v = '1.0.0';
+        };
     /**
     * 初始化下拉树选择框
     */
-    TreeSelect.prototype.init = function(elem) {
+    TreeSelect.prototype.render = function (options) {
         var that = this,
-            TIPS = '请选择',
+            othis =options? $(options.elem):null,
+            tips = '请选择',
             CLASS = 'layui-form-select',
             TITLE = 'layui-select-title',
             NONE = 'layui-select-none',
             initValue = '',
             thatInput,
-            times = new Date().getTime(),
-            treeid = "selecttree_" + times,
+            isJson = function(obj) {
+                return typeof (obj) == "object" && Object.prototype.toString.call(obj).toLowerCase() == "[object object]" && !obj.length;
+            },
+            settext = function (data, val, input) {
+                $.each(data,
+                    function (_, o) {
+                        if (o.id === val) {
+                            input.val(o.name);
+                            return false;
+                        }
+                        if (o.children)
+                            settext.call(this, o.children, val, input);
+                    });
+            },
             hide = function(e, clear) {
                 if (!$(e.target).parent().hasClass(TITLE) || clear) {
                     $('.' + CLASS).removeClass(CLASS + 'ed ' + CLASS + 'up');
@@ -39,19 +44,15 @@ layui.define(['layer', 'tree'], function (exports) {
                 }
                 thatInput = null;
             },
-            events = function(reElem, disabled) {
-                var select = $(this),
-                    title = reElem.find('.' + TITLE),
+            events = function(reElem,treeid, disabled) {
+                var title = reElem.find('.' + TITLE),
                     input = title.find('input'),
                     tree = reElem.find('.layui-tree'),
-                    defaultVal = elem.val();
-                    //
-                //$.each(data.options.data,
-                //    function(i, o) {
-                //        if (o.id === defaultVal) {
-                //            input.val(o.name);
-                //        }
-                //    });
+                    //defaultVal = 2;
+                    defaultVal =parseInt(othis.val()) ;
+                //如果控件有默认值，设置默认值
+                if (defaultVal)
+                    settext.call(this, treeData, defaultVal, input);
 
                 if (disabled) return;
 
@@ -113,78 +114,90 @@ layui.define(['layer', 'tree'], function (exports) {
                 //渲染tree
                 layui.tree({
                     elem: "#" + treeid,
-                    click: function (obj) {
-                        elem.val(obj.id).removeClass('layui-form-danger');
+                    click: function(obj) {
+                        othis.val(obj.id).removeClass('layui-form-danger');
                         input.val(obj.name);
+                        tree.find(".youyao-this").removeClass("youyao-this");
                         hideDown(true);
                         return false;
                     },
-                    nodes: that.options.data
-                });
+                    nodes: treeData                });
                 //点击树箭头不隐藏
-                tree.find(".layui-tree-spread").on('click', function () {
-                    return false;
-                });
+                tree.find(".layui-tree-spread").on('click',
+                    function() {
+                        return false;
+                    });
                 //关闭下拉
                 $(document).off('click', hide).on('click', hide);
-            }
-
-        var othis = $(elem),
-            hasRender = othis.next('.' + CLASS),
-            disabled = that.disabled,
-            value = othis.value,
-            placeholder = othis.attr("placeholder") ? othis.attr("placeholder") : TIPS;
-        if (typeof othis.attr('lay-ignore') === 'string') return othis.show();
-        //隐藏原控件
-        othis.hide();
-        //替代元素
-        var reElem = $([
-            '<div class="layui-unselect ' + CLASS + (disabled ? ' layui-select-disabled' : '') + '">',
-            '<div class="' +
-            TITLE +
-            '"><input type="text" placeholder="' +
-            placeholder +
-            '" value="' +
-            (value ? selected.html() : '') +
-            '" readonly class="layui-input layui-input-small layui-unselect' +
-            (disabled ? (' ' + DISABLED) : '') +
-            '">', '<i class="layui-edge"></i></div>', '<ul id="' + treeid + '" class="layui-anim layui-anim-upbit layui-tree"></ul>', '</div>'
-        ].join(''));
-        hasRender[0] && hasRender.remove(); //如果已经渲染，则Rerender
-        othis.after(reElem);
-        events.call(this, reElem, disabled);
-    };
-
-    /**
-     * 判断是否json
-     * @param {any} obj
-     */
-    function isJson(obj) {
-        return typeof (obj) == "object" && Object.prototype.toString.call(obj).toLowerCase() == "[object object]" && !obj.length;
-    }
-    // 导出组件
-    //exports(_MOD, new TreeSelect());
-    //暴露接口
-    exports(_MOD, function (options) {
-        var treeSelect = new TreeSelect(options = options || {});
-        var elem = $(options.elem);
-        if (!elem[0])
+            },
+            init = function(treeid) {
+                var hasRender = othis.next('.' + CLASS),
+                    disabled = that.disabled,
+                    value = othis.value,
+                    placeholder = othis.attr("placeholder") ? othis.attr("placeholder") : tips;
+                if (typeof othis.attr('lay-ignore') === 'string') return othis.show();
+                //隐藏原控件
+                othis.hide();
+                othis.addClass("layui-input-treeselect");
+                othis.attr("data-treeid", treeid);
+                //替代元素
+                var reElem = $([
+                    '<div class="layui-unselect ' + CLASS + (disabled ? ' layui-select-disabled' : '') + '">',
+                    '<div class="' +
+                    TITLE +
+                    '"><input type="text" placeholder="' +
+                    placeholder +
+                    '" id="' +
+                    treeid +
+                    "_text" +
+                    '" value="' +
+                    (value ? selected.html() : '') +
+                    '" readonly class="layui-input layui-unselect' +
+                    (disabled ? (' ' + DISABLED) : '') +
+                    '">', '<i class="layui-edge"></i></div>',
+                    '<ul id="' + treeid + '" class="layui-anim layui-anim-upbit layui-tree"></ul>', '</div>'
+                ].join(''));
+                hasRender[0] && hasRender.remove(); //如果已经渲染，则Rerender
+                othis.after(reElem);
+                events.call(this, reElem, treeid, disabled);
+            },
+            reset = function(filter) {
+                var trees = filter ? $('*[lay-filter="' + filter + '"]') : $(".layui-input-treeselect");
+                layui.each(trees,
+                    function (_, one) {
+                        othis = $(one);
+                        var treeid = othis.attr("data-treeid");
+                        init.call(this, treeid);
+                    });
+            };
+        if (!options)
+            return reset.call(this,null);
+        if (options.filter)
+            return reset.call(this,options.filter);
+       
+        if (!othis[0])
             return hint.error('layui.treeSelect 没有找到' + options.elem + '元素');
         if (!options.data)
-            return hint.error('layui.treeSelect 缺少参数 data ,data 可直接指定treedata，也可以是treedata数据url，treedata参见layui tree模块');
-//        if (isJson(options.data))
-//            treeSelect.init(elem);
-//       else {
+            return hint.error(
+                'layui.treeSelect 缺少参数 data ,data 可直接指定treedata，也可以是treedata数据url，treedata参见layui tree模块');
+        var treeid = "selecttree_" + options.elem.replace("#", "");
+        if (isJson.call(this, options.data)) {
+            //缓存tree data
+            treeData = options.data;
+            init.call(this, treeid);
+        } else {
             $.ajax({
                 url: options.data,
                 dataType: "json",
                 type: !options.method ? "POST" : options.method,
-                success: function (d) {
-                	
-                    options.data = d;
-                   treeSelect.init(elem);
-               }
+                success: function(d) {
+                    treeData = d;
+                    init.call(this, treeid);
+                }
             });
-        //}
-    });
+        }
+    };
+    var treeSelect = new TreeSelect();
+    //暴露接口
+    exports(_MOD, treeSelect);
 });

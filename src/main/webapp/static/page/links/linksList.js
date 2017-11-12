@@ -87,10 +87,23 @@ layui.config({
 
 	//添加友情链接
 	$(".linksAdd_btn").click(function(){
+		var self=$(this);
+		var id=self.attr("data-id");
+		var url="",title="";
+		if(id!=undefined)
+		{
+			url="addMenu?id="+id;
+			title="修改菜单";
+		}
+		else
+		{
+			url="addMenu";
+			title="添加菜单";
+		}
 		var index = layui.layer.open({
-			title : "添加友情链接",
+			title : title,
 			type : 2,
-			content : "addMenu",
+			content : url, 
 			success : function(layero, index){
 				setTimeout(function(){
 					layui.layer.tips('点击此处返回友链列表', '.layui-layer-setwin .layui-layer-close', {

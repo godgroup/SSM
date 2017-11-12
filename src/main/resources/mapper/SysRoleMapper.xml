@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="xxm.mapper.SysRoleMapper" >
+<mapper namespace="net.ssm.system.web.dao.SysRoleMapper" >
   <resultMap id="BaseResultMap" type="net.ssm.system.web.pojo.SysRole" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
@@ -114,4 +114,10 @@
       remarks = #{remarks,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="selectSysRoleList" parameterType="Long" resultType="net.ssm.system.web.pojo.SysRole">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_role
+    
+  </select>
 </mapper>

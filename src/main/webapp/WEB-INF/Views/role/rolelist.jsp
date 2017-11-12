@@ -42,12 +42,9 @@
 				<tr>
 					<th>勾选</th>
 					<th >id</th>
-					<th>菜单名</th>
-					<th>菜单链接</th>
-					<th>菜单类型</th>
-					<th>状态</th><th>备注</th>
+					<th>角色名</th>
+					<th>备注</th>
 					<th>添加时间</th>
-					
 					<th>操作</th>
 				</tr>
 			</thead>
@@ -62,9 +59,7 @@
 							</div></td>
 						<td >${item.id }</td>
 						<td>${item.name }</td>
-						<td>${item.href}</td>
-						<td>${item.type}</td>
-						<td>${item.status}</td><td>${item.remarks}</td>
+						<td>${item.remarks}</td>
 						<td><fmt:formatDate value="${item.create_at}"
 								pattern="yyyy-MM-dd HH:mm:ss" /></td>
 						<td><a data-id="${item.id }" class="layui-btn layui-btn-mini linksAdd_btn"><i

@@ -11,15 +11,28 @@ public class Node {
 	 * 节点名称
 	 */
 	private String name;
-	private int id;
-	private int parentid;
-	public int getParentid() {
+	private String title;
+	private long id;
+	private long parentid;
+	public long getParentid() {
 		return parentid;
 	}
-	public void setParentid(int parentid) {
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public void setParentid(long parentid) {
 		this.parentid = parentid;
 	}
-
+	 private String icon;
+	public String getIcon() {
+		return icon;
+	}
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
 	private String alias;
 	private boolean spread;
 	private String href;
@@ -29,10 +42,10 @@ public class Node {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public String getAlias() {

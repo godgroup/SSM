@@ -15,7 +15,7 @@
 	"spread" : false
 },
 {
-	"title" : "菜单列表",
+	"title" : "菜单列表111",
 	"icon" : "&#xe64c;",
 	"href" : "/SSM/menu/menulist",
 	"spread" : false
@@ -37,7 +37,7 @@
 			"spread" : false
 		},
 		{
-			"title" : "登录",
+			"title" : "登录12222",
 			"icon" : "&#xe609;",
 			"href" : "page/login/login.html",
 			"spread" : false,

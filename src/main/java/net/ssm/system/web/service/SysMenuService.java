@@ -13,4 +13,8 @@ public interface SysMenuService {
 	List<SysMenu> GetMenuList();
 	
 	int insert(SysMenu menu);
+	
+	SysMenu selectByPrimaryKey(Long id);
+	
+	int updateByPrimaryKeySelective(SysMenu menu);
 }

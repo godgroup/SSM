@@ -7,11 +7,18 @@ layui.config({
 		layedit = layui.layedit,
 		laydate = layui.laydate,
 		$ = layui.jquery;
-	  
+	    treeselect = layui.treeselect; 
+	    
 	//创建一个编辑器
  	var editIndex = layedit.build('links_content');
  	var addLinksArray = [],addLinks;
- 	layui.treeselect(
+ 	var url="/SSM/menu/getNodes";
+ 	var parm=GetQueryString("id");
+ 	if(parm!=null)
+ 	{
+ 		url+="?id="+parm;
+ 	}
+ 	treeselect.render(
             {
             	//[{"children":[{"id":2,"name":"用户列表","spread":false}],"id":1,"name":"用户管理","spread":false} ],
             	// [{ //节点
@@ -23,11 +30,24 @@ layui.config({
 //	                    }]
 //	                  }],
                 elem: "#treeselecttest11",
-                data: "/SSM/menu/getNodes",
-  	            method: "GET"
+                data:url ,
+  	            method: "GET",
+  	           
             });
+ 	//全部treeselect
+ 	//treeselect.render();
+ 	//支持filter筛选
  	
+	//treeselect.render({filter:'demo'});
+ 	function GetQueryString(name)
+ 	{
+ 	     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+ 	     var r = window.location.search.substr(1).match(reg);
+ 	     if(r!=null)return  unescape(r[2]); return null;
+ 	}
  	form.on("submit(addLinks)",function(data){
+ 	
+ 		
  		 //弹出loading
  		 var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
  		 //var index = layer.load(1);
@@ -36,17 +56,20 @@ layui.config({
              type: 'post',
              async: false,
              url: '/SSM/menu/addSysMenu',
+             dataType:"json", 
              data: JSON.stringify(data.field),
              success: function (outResult) {
-                 layer.close(index);
-                 if (outResult.result=="ok") {
-                     layer.msg(outResult.Message, { icon: 6 });
-                     location.reload(true);
+            	 top.layer.close(index);
+            	 console.log(outResult.result);
+            	 console.log(outResult.msg);
+                 if (outResult.result) {
+                	 top.layer.msg(outResult.msg, { icon: 6 });
+                	 parent.location.reload();//location.reload(true);
                  } else {
-                     if (outResult.Message != undefined) {
-                         layer.msg(outResult.Message, { icon: 5 });
+                     if (outResult.msg != undefined) {
+                        top.layer.msg(outResult.msg, { icon: 5 });
                      } else {
-                         layer.msg('程序异常，请重试或联系作者', { icon: 5 });
+                        top.layer.msg('程序异常', { icon: 5 });
                      }
                  }
              },

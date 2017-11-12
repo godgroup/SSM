@@ -34,12 +34,12 @@
     insert into sys_menu (id, parent_id, type, 
       name, href, target, 
       icon, sort, status, permission, 
-      create_at, update_at, remarks
+       update_at, remarks
       )
     values (#{id,jdbcType=BIGINT}, #{parent_id,jdbcType=BIGINT}, #{type,jdbcType=CHAR}, 
       #{name,jdbcType=VARCHAR}, #{href,jdbcType=VARCHAR}, #{target,jdbcType=VARCHAR}, 
       #{icon,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{status,jdbcType=CHAR}, #{permission,jdbcType=VARCHAR}, 
-      #{create_at,jdbcType=TIMESTAMP}, #{update_at,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}
+      #{update_at,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="net.ssm.system.web.pojo.SysMenu" >

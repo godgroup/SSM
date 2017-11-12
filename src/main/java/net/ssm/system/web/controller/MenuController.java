@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.Resource;
 
 import net.ssm.system.web.pojo.SysMenu;
-import net.ssm.system.web.pojo.SysUser;
 import net.ssm.system.web.pojo.menu.Node;
 import net.ssm.system.web.service.SysMenuService;
 
@@ -24,131 +22,127 @@ import org.springframework.web.servlet.ModelAndView;
 public class MenuController {
 	@Resource
 	private SysMenuService sysMenuService;
+
 	/**
 	 * 返回菜单列表
+	 * 
 	 * @return
 	 */
-	@RequestMapping(value="menulist",method=RequestMethod.GET)
-	public ModelAndView index(){
-		 List<SysMenu> itemsList = sysMenuService.GetMenuList();
-		 ModelAndView modelAndView=new ModelAndView();
-        modelAndView.addObject("itemsList",itemsList);
-        //指定逻辑视图名itemsList.jsp
-        modelAndView.setViewName("menu/menulist");
+	@RequestMapping(value = "menulist", method = RequestMethod.GET)
+	public ModelAndView index() {
+		List<SysMenu> itemsList = sysMenuService.GetMenuList();
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("itemsList", itemsList);
+		// 指定逻辑视图名itemsList.jsp
+		modelAndView.setViewName("menu/menulist");
 
-        return modelAndView;
-		
-	} 
+		return modelAndView;
+
+	}
+    
 	@RequestMapping("addMenu")
-	public void addMenu(){
-		
-	
+	public ModelAndView addMenu(Long id) {
+		ModelAndView modelAndView = new ModelAndView();
+		SysMenu menu=new SysMenu();
+		if(id!=null)
+		{
+			menu=sysMenuService.selectByPrimaryKey(id);
+			System.out.println(menu.getParent_id());
+		}
+		modelAndView.addObject("item", menu);
+		modelAndView.setViewName("menu/addMenu");
+
+		return modelAndView;
 	}
-	static List<Node> configlist=new  ArrayList<Node>();
-	static{
-		
-		Node node=new Node();
-		node.setName("用户管理");
-		node.setId(1);
-		node.setParentid(0);
-		Node node1=new Node();
-		node1.setName("企业用户");
-		node1.setId(10);
-		node1.setParentid(1);
-		Node node2=new Node();
-		node2.setName("个人用户");
-		node2.setId(11);
-		node2.setParentid(1);
-		Node node6=new Node();
-		node6.setName("三级用户");
-		node6.setId(31);
-		node6.setParentid(11);
-		
-		Node node3=new Node();
-		node3.setName("借书管理");
-		node3.setId(2);
-		node3.setParentid(0);
-		Node node4=new Node();
-		node4.setName("借书列表");
-		node4.setId(20);
-		node4.setParentid(2);
-		Node node5=new Node();
-		node5.setName("还书列表");
-		node5.setId(21);
-		node5.setParentid(2);
-		Node node7=new Node();
-		node7.setName("菜单管理");
-		node7.setId(3233);
-		node7.setParentid(0);
-		configlist.add(node);
-		configlist.add(node1);configlist.add(node2);
-		configlist.add(node3);
-		configlist.add(node4);configlist.add(node5);
-		configlist.add(node6);configlist.add(node7);
-	}
-	
+
+	/**
+	 * 获取菜单树
+	 * @return
+	 */
 	@ResponseBody
-	@RequestMapping(value="getNodes",method=RequestMethod.GET)
-	public List<Node> getNodes(){
-		
-		
-		
-		List<Node> list=new ArrayList<Node>();
-		for (Node item : configlist) {
-			if(item.getParentid()==0)
+	@RequestMapping(value = "getNodes", method = RequestMethod.GET)
+	public List<Node> getNodes(Long id,Integer type) {
+		List<SysMenu> itemsList = sysMenuService.GetMenuList();//菜单列表
+		List<Node> nodelist = new ArrayList<Node>();//转换为node
+		for (SysMenu menu : itemsList) {
+			if(id!=null&& menu.getId()==id)
 			{
-				item.setChildren(addchild(item.getId()));
+				continue;//编辑菜单时，菜单树里过滤掉自己的id(自己不能设置父菜单为自己)
+			}
+			Node node=new Node();
+			node.setTitle(menu.getName());;
+			node.setId(menu.getId());
+			node.setName(menu.getName());;
+			node.setParentid(menu.getParent_id());
+			if(type!=null&&type==1)//加载左侧菜单列表时需要设置href,添加菜单时的tres不需要设置href
+			{
+				node.setHref(menu.getHref());
+				node.setIcon(menu.getIcon());
+			}
+			
+			nodelist.add(node);
+		}
+		List<Node> list = new ArrayList<Node>();//递归好的菜单列表
+		for (Node item : nodelist) {
+			if (item.getParentid() == 0) {
+				item.setChildren(addchild(item.getId(),nodelist));
 				list.add(item);
-				
 			}
 		}
-		
-		
-		
-//		
-//		Node node=new Node();
-//		node.setName("用户管理");
-//		node.setId(1);
-//	
-//		Node node1=new Node();
-//		node1.setName("用户列表");
-//		node1.setId(2);
-//		
-//		List<Node> list1=new ArrayList<Node>();
-//		list1.add(node1);
-//		node.setChildren(list1);
-//		list.add(node);
 		return list;
 	}
-	private List<Node> addchild(int id) {
-		List<Node> list=new ArrayList<Node>();
-		for (Node node : configlist) {
-			if(node.getParentid()==id)
-			{
-				
-				node.setChildren(addchild(node.getId()));
-				list.add(node);
+	/**
+	 * 递归查出指定Parentid的子菜单
+	 * @param parentId
+	 * @param nodelist
+	 * @return
+	 */
+	private List<Node> addchild(Long parentId,List<Node>  nodelist) {
+		List<Node> childList = new ArrayList<Node>();//子菜单列表
+		for (Node node : nodelist) {
+			if (node.getParentid() == parentId) {
+			    node.setChildren(addchild(node.getId(), nodelist));
+				childList.add(node);
 			}
-		} 
-		return list;
+		}
+		return childList;
 	}
-	
+
 	@ResponseBody
-	@RequestMapping(value="addSysMenu",method=RequestMethod.POST)
-	public Map<String,Object> addSysMenu(@RequestBody SysMenu menu){
-		Map<String,Object> result = new HashMap<String,Object>();
-		
-		System.out.println(menu.getIcon());
-		int ret=sysMenuService.insert(menu);
-		if(ret>0)
+	@RequestMapping(value = "addSysMenu", method = RequestMethod.POST)
+	public Map<String, Object> addSysMenu(@RequestBody SysMenu menu) {
+		Map<String, Object> resultmap = new HashMap<String, Object>();
+
+		int ret=-1;
+		boolean result=false;
+		String msg="操作失败";
+		if(menu.getParent_id()==null)
+			menu.setParent_id((long) 0);
+		if(menu.getId()==null)
 		{
-			result.put("result", true);
-			result.put("msg", "添加成功");
+			//插入
+			ret = sysMenuService.insert(menu);	
+			if (ret > 0)
+			{
+				msg="添加成功";
+				result=true;
+			}
+			
 		}
 		else {
-			result.put("result", false);
-			result.put("msg", "添加失败");
+			//修改
+			ret = sysMenuService.updateByPrimaryKeySelective(menu);	
+			if (ret > 0)
+			{
+				msg="修改成功";
+				result=true;
+			}
+				
 		}
-		return result;
+		 
+		resultmap.put("result", result);
+		resultmap.put("msg", msg);
+		 
+		return resultmap;
 	}
 }

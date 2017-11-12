@@ -24,5 +24,14 @@ public class SysMenuServiceImpl implements SysMenuService {
 	public int insert(SysMenu menu) {
 		return	sysMenuMapper.insert(menu);
 	}
+	@Override
+	public SysMenu selectByPrimaryKey(Long id) {
+		// TODO Auto-generated method stub
+		return sysMenuMapper.selectByPrimaryKey(id);
+	}
+	public int updateByPrimaryKeySelective(SysMenu menu) {
+		// TODO Auto-generated method stub
+		return sysMenuMapper.updateByPrimaryKeySelective(menu);
+	}  
 
 }
