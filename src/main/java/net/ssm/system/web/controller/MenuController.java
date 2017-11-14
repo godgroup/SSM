@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
 
+import net.ssm.config.SysConfig;
 import net.ssm.system.web.pojo.SysMenu;
 import net.ssm.system.web.pojo.menu.Node;
 import net.ssm.system.web.service.SysMenuService;
@@ -62,6 +63,7 @@ public class MenuController {
 	@ResponseBody
 	@RequestMapping(value = "getNodes", method = RequestMethod.GET)
 	public List<Node> getNodes(Long id,Integer type) {
+
 		List<SysMenu> itemsList = sysMenuService.GetMenuList();//菜单列表
 		List<Node> nodelist = new ArrayList<Node>();//转换为node
 		for (SysMenu menu : itemsList) {
@@ -70,13 +72,16 @@ public class MenuController {
 				continue;//编辑菜单时，菜单树里过滤掉自己的id(自己不能设置父菜单为自己)
 			}
 			Node node=new Node();
-			node.setTitle(menu.getName());;
+			node.setTitle(menu.getName());
 			node.setId(menu.getId());
-			node.setName(menu.getName());;
+			node.setName(menu.getName());
 			node.setParentid(menu.getParent_id());
 			if(type!=null&&type==1)//加载左侧菜单列表时需要设置href,添加菜单时的tres不需要设置href
 			{
-				node.setHref(menu.getHref());
+				if(SysConfig.getContextPath()!=null)
+				  node.setHref(SysConfig.getContextPath()+menu.getHref());
+				else
+					node.setHref(SysConfig.getContextPath() + menu.getHref());
 				node.setIcon(menu.getIcon());
 			}
 			

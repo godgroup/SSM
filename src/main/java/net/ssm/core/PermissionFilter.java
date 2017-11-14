@@ -3,6 +3,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
+import net.ssm.config.SysConfig;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.apache.shiro.web.util.WebUtils;
@@ -37,6 +38,9 @@ public class PermissionFilter extends AccessControlFilter {
 		if(null != uri && uri.startsWith(basePath)){
 			uri = uri.replaceFirst(basePath, "");
 		}
+		System.out.println(basePath);
+		if(SysConfig.getContextPath()==null&&basePath!=null)
+			SysConfig.setContextPath(basePath);
 		return Boolean.TRUE;
 //		if(subject.isPermitted(uri)){
 //			return Boolean.TRUE;
