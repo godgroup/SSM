@@ -15,7 +15,7 @@ layui.config({
     //创建一个编辑器
     var editIndex = layedit.build('links_content');
     var addLinksArray = [],addLinks;
-   
+
     var tree = layui.tree({
         elem : '#tree-demo', //指定元素，生成的树放到哪个元素上
         check: 'checkbox', //勾选风格

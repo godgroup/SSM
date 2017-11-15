@@ -43,4 +43,10 @@
       </if>
     </trim>
   </insert>
+  <select id="selectSysMenuList" parameterType="Long" resultType="net.ssm.system.web.pojo.SysMenu">
+    select
+    <include refid="Base_Column_List" />
+    from sys_menu
+
+  </select>
 </mapper>

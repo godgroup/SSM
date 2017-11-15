@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("menu")
 public class RoleMenuController {
     @RequestMapping("roleMenu")
-    public ModelAndView setRoleMenu() {
+    public ModelAndView setRoleMenu(Integer roleId) {
         ModelAndView modelAndView = new ModelAndView();
 
 
