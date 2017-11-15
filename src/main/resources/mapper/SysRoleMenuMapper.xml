@@ -43,10 +43,8 @@
       </if>
     </trim>
   </insert>
-  <select id="selectSysMenuList" parameterType="Long" resultType="net.ssm.system.web.pojo.SysMenu">
-    select
-    <include refid="Base_Column_List" />
-    from sys_menu
+  <select id="selectSysMenuByRoleId" parameterType="Long" resultType="net.ssm.system.web.pojo.SysMenu">
+    SELECT b.*  FROM sys_role_menu a INNER JOIN sys_menu b ON a.sys_menu_id = b.id WHERE a.sys_role_id=#{id,jdbcType=BIGINT}
 
   </select>
 </mapper>

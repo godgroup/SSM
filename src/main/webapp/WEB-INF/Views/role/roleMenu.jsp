@@ -20,7 +20,10 @@
 
   <div class="layui-form-item" id="tree-demo"></div>
 
-
+<script type="text/javascript">
+	var hh=${nodelist};
+	     
+</script>
 <script type="text/javascript" src="${ctx}static/page/links/roleMenu.js?v=4.0"></script>
 
 </html>
