@@ -24,6 +24,6 @@
 	var hh=${nodelist};
 	     
 </script>
-<script type="text/javascript" src="${ctx}static/page/links/roleMenu.js?v=4.0"></script>
+<script type="text/javascript" src="${ctx}static/page/rolemenu/setrolemenu.js?v=4.0"></script>
 
 </html>

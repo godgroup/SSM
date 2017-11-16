@@ -62,8 +62,8 @@
 						<td>${item.remarks}</td>
 						<td><fmt:formatDate value="${item.create_at}"
 								pattern="yyyy-MM-dd HH:mm:ss" /></td>
-						<td><a data-id="${item.id }" class="layui-btn layui-btn-mini linksAdd_btn"><i
-								class="iconfont icon-edit "></i> 编辑</a>
+						<td><a data-id="${item.id }" class="layui-btn layui-btn-mini setRoleMenu_btn"><i
+								class="iconfont icon-edit "></i> 设置权限</a>
 							<a class="layui-btn layui-btn-danger layui-btn-mini news_del"
 							data-id="1"><i class="layui-icon"></i> 禁用</a></td>
 					</tr>
@@ -75,6 +75,6 @@
 		</table>
 	</div>
 	<div id="page"></div>
-	<script type="text/javascript" src="${ctx}static/page/links/linksList.js"></script>
+	<script type="text/javascript" src="${ctx}static/page/rolemenu/rolemenu.js"></script>
 </body>
 </html>

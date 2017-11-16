@@ -17,17 +17,17 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSON;
 
 @Controller
-@RequestMapping("menu")
+@RequestMapping("roleMenu")
 public class RoleMenuController {
 	@Resource
 	private SysRoleMenuService sysRoleMenuService;
 	@Resource
 	private SysMenuService sysMenuService;
-    @RequestMapping("roleMenu")
+    @RequestMapping("setRoleMenu")
     public ModelAndView setRoleMenu(Long roleId) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("itemsList", "shenxy");
-        List<SysMenu> menuList=sysRoleMenuService.selectSysMenuByRoleId(1l);
+        List<SysMenu> menuList=sysRoleMenuService.selectSysMenuByRoleId(roleId);
         List<Node> nodelist=   sysMenuService.getNodeList(null, null, menuList);
         String nodeJsonString=  JSON.toJSONString(nodelist);
         modelAndView.addObject("nodelist", nodeJsonString);

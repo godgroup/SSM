@@ -1,4 +1,7 @@
 /**
+ * Created by user on 2017/11/16.
+ */
+/**
  * Created by user on 2017/11/14.
  */
 layui.config({
@@ -10,101 +13,101 @@ layui.config({
         layedit = layui.layedit,
         laydate = layui.laydate,
         $ = layui.jquery;
-   
+
 
     //创建一个编辑器
     var editIndex = layedit.build('links_content');
     var addLinksArray = [],addLinks;
-   /* addLinksArray= [ //节点
-      {
-          name: '常用文件夹', //节点名称
-          //	spread: true, //是否是展开状态，true为展开状态
-          href: "http://www.baidu.com",//设置节点跳转的链接，如果不设置则不会跳转
-          target: "_self",//节点链接打开方式
-          alias: 'changyong',
-          data: {
-              nodeName: "常用文件夹",
-              alias: "changyong"
-          },
-          checkboxValue: 1,//复选框的值
-          checked: true,//复选框默认是否选中
-          children: [{
-              name: '所有未读',
-              alias: 'weidu',
-              checked: true,
-              checkboxValue: 2
-          }, {
-              name: '置顶邮件',
-          }, {
-              name: '标签邮件',
-              checked: false,
-              checkboxValue: 3
-          }]
-      }, {
-          name: '我的邮箱',
-          checked: true,
-          spread: true,
-          data: {
-              nodeName: "我的邮箱",
-              alias: "email"
-          },
-          children: [{
-              name: 'QQ邮箱',
-              checked: true,
-              checkboxValue: 4,
-              spread: true,
-              children: [{
-                  name: '收件箱',
-                  checked: false,
-                  checkboxValue: 5,
-                  children: [{
-                      name: '所有未读',
-                      checked: false,
-                      checkboxValue: 6,
-                      children: [{
-                          name: '一周未读',
-                          checked: false,
-                          checkboxValue: 6
-                      }]
-                  }, {
-                      name: '置顶邮件',
-                      checked: false,
-                      checkboxValue: 7
-                  }, {
-                      name: '标签邮件',
-                      checked: false,
-                      checkboxValue: 8
-                  }]
-              }, {
-                  name: '已发出的邮件',
-                  checked: false,
-                  checkboxValue: 9
-              }, {
-                  name: '垃圾邮件',
-                  checked: false,
-                  checkboxValue: 10
-              }]
-          }, {
-              name: '阿里云邮',
-              checked: true,
-              checkboxValue: 11,
-              children: [{
-                  name: '收件箱',
-                  checked: true,
-                  checkboxValue: 12
-              }, {
-                  name: '已发出的邮件',
-                  checked: true,
-                  checkboxValue: 13
-              }, {
-                  name: '垃圾邮件',
-                  checked: true,
-                  checkboxValue: 14
-              }]
-          }]
-      }
-  ];*/
-   //addLinksArray=JSON.parse(hh);
+    /* addLinksArray= [ //节点
+     {
+     name: '常用文件夹', //节点名称
+     //	spread: true, //是否是展开状态，true为展开状态
+     href: "http://www.baidu.com",//设置节点跳转的链接，如果不设置则不会跳转
+     target: "_self",//节点链接打开方式
+     alias: 'changyong',
+     data: {
+     nodeName: "常用文件夹",
+     alias: "changyong"
+     },
+     checkboxValue: 1,//复选框的值
+     checked: true,//复选框默认是否选中
+     children: [{
+     name: '所有未读',
+     alias: 'weidu',
+     checked: true,
+     checkboxValue: 2
+     }, {
+     name: '置顶邮件',
+     }, {
+     name: '标签邮件',
+     checked: false,
+     checkboxValue: 3
+     }]
+     }, {
+     name: '我的邮箱',
+     checked: true,
+     spread: true,
+     data: {
+     nodeName: "我的邮箱",
+     alias: "email"
+     },
+     children: [{
+     name: 'QQ邮箱',
+     checked: true,
+     checkboxValue: 4,
+     spread: true,
+     children: [{
+     name: '收件箱',
+     checked: false,
+     checkboxValue: 5,
+     children: [{
+     name: '所有未读',
+     checked: false,
+     checkboxValue: 6,
+     children: [{
+     name: '一周未读',
+     checked: false,
+     checkboxValue: 6
+     }]
+     }, {
+     name: '置顶邮件',
+     checked: false,
+     checkboxValue: 7
+     }, {
+     name: '标签邮件',
+     checked: false,
+     checkboxValue: 8
+     }]
+     }, {
+     name: '已发出的邮件',
+     checked: false,
+     checkboxValue: 9
+     }, {
+     name: '垃圾邮件',
+     checked: false,
+     checkboxValue: 10
+     }]
+     }, {
+     name: '阿里云邮',
+     checked: true,
+     checkboxValue: 11,
+     children: [{
+     name: '收件箱',
+     checked: true,
+     checkboxValue: 12
+     }, {
+     name: '已发出的邮件',
+     checked: true,
+     checkboxValue: 13
+     }, {
+     name: '垃圾邮件',
+     checked: true,
+     checkboxValue: 14
+     }]
+     }]
+     }
+     ];*/
+    //addLinksArray=JSON.parse(hh);
     var tree = layui.tree({
         elem : '#tree-demo', //指定元素，生成的树放到哪个元素上
         check: 'checkbox', //勾选风格
