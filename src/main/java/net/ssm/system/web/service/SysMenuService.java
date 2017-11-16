@@ -19,5 +19,6 @@ public interface SysMenuService {
 	
 	int updateByPrimaryKeySelective(SysMenu menu);
 	
-	List<Node>	getNodeList(Long id,Integer type,List<SysMenu> itemsList);
+	List<Node>	getNodeList(Long id,Integer type,List<SysMenu> allMenuList);
+	List<Node>	getNodeList(Long id,Integer type,List<SysMenu> allMenuList,List<SysMenu> roleMenuList);
 }

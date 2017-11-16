@@ -14,6 +14,25 @@ public class Node {
 	private String title;
 	private long id;
 	private long parentid;
+    private String icon;
+    private String alias;
+	private boolean spread;
+	private String href;
+	private List<Node> children;
+	private Long checkboxValue; 
+	public Long getCheckboxValue() {
+		return checkboxValue;
+	}
+	public void setCheckboxValue(Long checkboxValue) {
+		this.checkboxValue = checkboxValue;
+	}
+	public boolean isChecked() {
+		return checked;
+	}
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
+	private boolean checked; 
 	public long getParentid() {
 		return parentid;
 	}
@@ -26,16 +45,13 @@ public class Node {
 	public void setParentid(long parentid) {
 		this.parentid = parentid;
 	}
-	 private String icon;
+	
 	public String getIcon() {
 		return icon;
 	}
 	public void setIcon(String icon) {
 		this.icon = icon;
 	}
-	private String alias;
-	private boolean spread;
-	private String href;
 	public String getName() {
 		return name;
 	}
@@ -67,7 +83,7 @@ public class Node {
 		this.href = href;
 	}
 	 
-	private List<Node> children;
+	
 	public List<Node> getChildren() {
 		return children;
 	}

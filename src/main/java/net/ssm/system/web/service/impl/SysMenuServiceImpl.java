@@ -36,14 +36,14 @@ public class SysMenuServiceImpl implements SysMenuService {
 		// TODO Auto-generated method stub
 		return sysMenuMapper.updateByPrimaryKeySelective(menu);
 	}  
-    public List<Node> getNodeList(Long id,Integer type,List<SysMenu> itemsList)
+    public List<Node> getNodeList(Long id,Integer type,List<SysMenu> allMenuList)
     {
-    	if(itemsList==null||itemsList.size()==0)
+    	if(allMenuList==null||allMenuList.size()==0)
     	{
     		return null;
     	}
     	List<Node> nodelist = new ArrayList<Node>();//转换为node
-		for (SysMenu menu : itemsList) {
+		for (SysMenu menu : allMenuList) {
 			if(id!=null&& menu.getId()==id)
 			{
 				continue;//编辑菜单时，菜单树里过滤掉自己的id(自己不能设置父菜单为自己)
@@ -74,7 +74,52 @@ public class SysMenuServiceImpl implements SysMenuService {
 		}
     	return list;
     }
-	
+    public List<Node> getNodeList(Long id,Integer type,List<SysMenu> allMenuList,List<SysMenu> roleMenuList)
+    {
+    	if(allMenuList==null||allMenuList.size()==0)
+    	{
+    		return null;
+    	}
+    	List<Node> nodelist = new ArrayList<Node>();//转换为node
+		for (SysMenu menu : allMenuList) {
+			if(id!=null&& menu.getId()==id)
+			{
+				continue;//编辑菜单时，菜单树里过滤掉自己的id(自己不能设置父菜单为自己)
+			}
+			Node node=new Node();
+			node.setTitle(menu.getName());
+			node.setId(menu.getId());
+			node.setName(menu.getName());
+			node.setParentid(menu.getParent_id());
+			if(type!=null&&type==1)//加载左侧菜单列表时需要设置href,添加菜单时的tres不需要设置href
+			{
+				if(SysConfig.getContextPath()!=null)
+				  node.setHref(SysConfig.getContextPath()+menu.getHref());
+				else
+					node.setHref(SysConfig.getContextPath() + menu.getHref());
+				node.setIcon(menu.getIcon());
+			}
+			for (SysMenu roleMenu : roleMenuList) {
+				if(roleMenu.getId()==menu.getId())
+				{
+					node.setChecked(true);
+					node.setCheckboxValue(menu.getId());
+					break;
+				}
+			}
+			
+			nodelist.add(node);
+		}
+		List<Node> list = new ArrayList<Node>();//递归好的菜单列表
+		
+		for (Node item : nodelist) {
+			if (item.getParentid() == 0) {
+				item.setChildren(addchild(item.getId(),nodelist));
+				list.add(item);
+			}
+		}
+    	return list;
+    }
 	/**
 	 * 递归查出指定Parentid的子菜单
 	 * @param parentId
@@ -91,4 +136,5 @@ public class SysMenuServiceImpl implements SysMenuService {
 		}
 		return childList;
 	}
+	
 }

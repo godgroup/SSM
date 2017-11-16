@@ -27,8 +27,9 @@ public class RoleMenuController {
     public ModelAndView setRoleMenu(Long roleId) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("itemsList", "shenxy");
-        List<SysMenu> menuList=sysRoleMenuService.selectSysMenuByRoleId(roleId);
-        List<Node> nodelist=   sysMenuService.getNodeList(null, null, menuList);
+        List<SysMenu> roleMenuList=sysRoleMenuService.selectSysMenuByRoleId(roleId);
+        
+        List<Node> nodelist=   sysMenuService.getNodeList(null, null,  sysMenuService.GetMenuList(),roleMenuList);
         String nodeJsonString=  JSON.toJSONString(nodelist);
         modelAndView.addObject("nodelist", nodeJsonString);
         modelAndView.setViewName("role/roleMenu");
