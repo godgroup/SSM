@@ -17,12 +17,21 @@
 </head>
 
 
+  <input type="hidden" value="${rolename}" name="id">
+  <div class="layui-form-item">
+    <label class="layui-form-label">角色名称</label>
+    <div class="layui-input-block">
+      <input type="text" class="layui-input linksName" value="${rolename}" name="name" lay-verify="required" placeholder="请输入网站名称">
+    </div>
+  </div>
 
-  <div class="layui-form-item" id="tree-demo"></div>
+
+
+<div class="layui-form-item" id="tree-demo"></div>
 
 <script type="text/javascript">
-	var hh=${nodelist};
-	     
+  var hh=${nodelist};
+
 </script>
 <script type="text/javascript" src="${ctx}static/page/rolemenu/setrolemenu.js?v=4.0"></script>
 

@@ -6,6 +6,13 @@
     <id column="sys_role_id" property="sys_role_id" jdbcType="BIGINT" />
     <id column="sys_menu_id" property="sys_menu_id" jdbcType="BIGINT" />
   </resultMap>
+  <resultMap id="ResultMap" type="net.ssm.system.web.pojo.RoleMenuVo" >
+    <id column="role_id" property="roleId" jdbcType="BIGINT" />
+    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+    <collection property="roleMenuList" ofType="net.ssm.system.web.pojo.SysMenu">
+      <id column="id" property="id" jdbcType="BIGINT" />
+    </collection>
+  </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="net.ssm.system.web.pojo.SysRoleMenu" >
     delete from sys_role_menu
     where id = #{id,jdbcType=BIGINT}
@@ -43,8 +50,8 @@
       </if>
     </trim>
   </insert>
-  <select id="selectSysMenuByRoleId" parameterType="Long" resultType="net.ssm.system.web.pojo.SysMenu">
-    SELECT b.*  FROM sys_role_menu a INNER JOIN sys_menu b ON a.sys_menu_id = b.id WHERE a.sys_role_id=#{id,jdbcType=BIGINT}
+  <select id="selectSysMenuByRoleId" parameterType="Long" resultMap="ResultMap">
+   SELECT b.*,c.id AS role_id,c.name AS role_name  FROM  sys_role_menu a  LEFT OUTER JOIN sys_menu b ON a.sys_menu_id =b.id   LEFT OUTER JOIN sys_role c ON c.id=a.sys_role_id WHERE a.sys_role_id=#{id,jdbcType=BIGINT}
 
   </select>
 </mapper>

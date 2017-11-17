@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import net.ssm.system.web.pojo.RoleMenuVo;
 import org.springframework.stereotype.Service;
 
 import net.ssm.system.web.dao.SysRoleMenuMapper;
@@ -34,7 +35,7 @@ public class SysRoleMenuServiceImpl implements SysRoleMenuService {
 	}
 
 	@Override
-	public List<SysMenu> selectSysMenuByRoleId(Long roleId) {
+	public RoleMenuVo selectSysMenuByRoleId(Long roleId) {
 		
 		return sysRoleMenuMapper.selectSysMenuByRoleId(roleId);
 	}

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import net.ssm.system.web.pojo.RoleMenuVo;
 import net.ssm.system.web.pojo.SysMenu;
 import net.ssm.system.web.pojo.menu.Node;
 import net.ssm.system.web.service.SysMenuService;
@@ -26,11 +27,12 @@ public class RoleMenuController {
     @RequestMapping("setRoleMenu")
     public ModelAndView setRoleMenu(Long roleId) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("itemsList", "shenxy");
-        List<SysMenu> roleMenuList=sysRoleMenuService.selectSysMenuByRoleId(roleId);
-        
+
+         RoleMenuVo role=sysRoleMenuService.selectSysMenuByRoleId(roleId);
+         List<SysMenu> roleMenuList= role.getRoleMenuList();
         List<Node> nodelist=   sysMenuService.getNodeList(null, null,  sysMenuService.GetMenuList(),roleMenuList);
         String nodeJsonString=  JSON.toJSONString(nodelist);
+        modelAndView.addObject("rolename",role.getRoleName() );
         modelAndView.addObject("nodelist", nodeJsonString);
         modelAndView.setViewName("role/roleMenu");
 
