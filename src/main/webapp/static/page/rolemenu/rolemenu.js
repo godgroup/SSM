@@ -95,7 +95,7 @@ layui.config({
         var url="",title="";
         if(id!=undefined)
         {
-            url=ctx+"/roleMenu/setRoleMenu?roleId="+id;
+            url=ctx+"roleMenu/setRoleMenu?roleId="+id;
             title="设置权限";
         }
 

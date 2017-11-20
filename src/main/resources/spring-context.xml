@@ -126,9 +126,12 @@
 		<property name="filterChainDefinitions">
 			<value>
 				/admin/login = anon
+				/home/index = anon
+				/admin/userlist= anon
 				/admin/loginValidate = anon
 				/static/** = anon
 				/common/unauthorize = anon
+				/menu/getNodes = anon
 				/** = permission
 			</value>
 		</property>

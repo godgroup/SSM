@@ -1,22 +1,22 @@
 package net.ssm.system.web.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.annotation.Resource;
-
-import net.ssm.config.SysConfig;
 import net.ssm.system.web.pojo.SysMenu;
+import net.ssm.system.web.pojo.SysUser;
 import net.ssm.system.web.pojo.menu.Node;
 import net.ssm.system.web.service.SysMenuService;
-
+import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("menu")
@@ -65,7 +65,11 @@ public class MenuController {
 	public List<Node> getNodes(Long id,Integer type) {
 
 		List<SysMenu> itemsList = sysMenuService.GetMenuList();//菜单列表
-		
+		SysUser sysUser=(SysUser) SecurityUtils.getSubject().getSession().getAttribute("user");
+		if(type!=null&&type==1)
+		{
+			itemsList=sysMenuService.selectSysMenuListByuid(sysUser.getId());
+		}
 		List<Node> list = new ArrayList<Node>();//递归好的菜单列表
 		list=sysMenuService.getNodeList(id,type,itemsList);
 		

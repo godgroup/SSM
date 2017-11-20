@@ -11,7 +11,7 @@ public interface SysRoleService {
 	 * @return
 	 */
 	List<SysRole> GetRoleList();
-	
+
 	int insert(SysRole Role);
 	
 	SysRole selectByPrimaryKey(Long id);

@@ -1,14 +1,12 @@
 package net.ssm.system.web.service.impl;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-
 import net.ssm.system.web.dao.SysRoleMapper;
 import net.ssm.system.web.pojo.SysRole;
 import net.ssm.system.web.service.SysRoleService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class SysRoleServiceImpl implements SysRoleService {
@@ -29,8 +27,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 
 	@Override
 	public SysRole selectByPrimaryKey(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return  sysRoleMapper.selectByPrimaryKey(id);
 	}
 
 	@Override

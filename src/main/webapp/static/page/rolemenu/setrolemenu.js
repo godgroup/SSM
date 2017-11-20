@@ -6,18 +6,13 @@
  */
 layui.config({
     base : "/SSM/static/js/"
-}).use(['form','layer','jquery','layedit','laydate','tree',],function(){
-    var form = layui.form(),
-        layer = parent.layer === undefined ? layui.layer : parent.layer,
-        laypage = layui.laypage,
-        layedit = layui.layedit,
-        laydate = layui.laydate,
-        $ = layui.jquery;
+}).use(['layer','jquery','treecheck',],function(){
+    var layer = parent.layer === undefined ? layui.layer : parent.layer,
+
+        $ = layui.jquery,
+        treecheck = layui.treecheck;
 
 
-    //创建一个编辑器
-    var editIndex = layedit.build('links_content');
-    var addLinksArray = [],addLinks;
     /* addLinksArray= [ //节点
      {
      name: '常用文件夹', //节点名称
@@ -108,12 +103,12 @@ layui.config({
      }
      ];*/
     //addLinksArray=JSON.parse(hh);
-    var tree = layui.tree({
+    var tree = treecheck.init({
         elem : '#tree-demo', //指定元素，生成的树放到哪个元素上
         check: 'checkbox', //勾选风格
         skin: 'as', //设定皮肤
         drag: true,//点击每一项时是否生成提示信息
-        checkboxName: 'aa[]',//复选框的name属性值
+        checkboxName: 'menus',//复选框的name属性值
         checkboxStyle: "",//设置复选框的样式，必须为字符串，css样式怎么写就怎么写
         click: function (item) { //点击节点回调
             console.log("item")
@@ -125,55 +120,45 @@ layui.config({
     });
 
 
+   $("#setrolemenu_btn").click(function(){
+       console.log("我是提交的开始");
+       var roleId=$('input[name="id"]').val();
+       var roleName=$('input[name="name"]').val();
+       var menus = "";
+       $('input[name="menus"]:checked').each(function() {
+           if ( menus == "")
+               menus = $(this).val();
+           else
+               menus = menus + "," + $(this).val();
+       });
 
-    function GetQueryString(name)
-    {
-        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-        var r = window.location.search.substr(1).match(reg);
-        if(r!=null)return  unescape(r[2]); return null;
-    }
-    form.on("submit(addLinks)",function(data){
-
-
-        //弹出loading
-        var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
-        //var index = layer.load(1);
-        $.ajax({
-            contentType: "application/json",
-            type: 'post',
-            async: false,
-            url: '/SSM/menu/addSysMenu',
-            dataType:"json",
-            data: JSON.stringify(data.field),
-            success: function (outResult) {
-                top.layer.close(index);
-                console.log(outResult.result);
-                console.log(outResult.msg);
-                if (outResult.result) {
-                    top.layer.msg(outResult.msg, { icon: 6 });
-                    parent.location.reload();//location.reload(true);
-                } else {
-                    if (outResult.msg != undefined) {
-                        top.layer.msg(outResult.msg, { icon: 5 });
-                    } else {
-                        top.layer.msg('程序异常', { icon: 5 });
-                    }
-                }
-            },
-            error: function (outResult) {
-                layer.close(index);
-                layer.msg("请求异常", { icon: 2 });
-            }
-        });
-
-//        setTimeout(function(){
-//            top.layer.close(index);
-//			top.layer.msg("文章添加成功！");
-// 			layer.closeAll("iframe");
-//	 		//刷新父页面
-//	 		parent.location.reload();
-//        },2000);
-        return false;
-    })
-
+       //弹出loading
+       var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
+       $.ajax({
+           //contentType: "application/json",
+           type: 'post',
+           url: '/SSM/roleMenu/doSetRoleMenu',
+           dataType:"json",
+           data: {"roleId":roleId,"roleName":roleName,"menus":menus},
+           success: function (outResult) {
+               top.layer.close(index);
+               console.log(outResult.result);
+               console.log(outResult.msg);
+               if (outResult.result) {
+                   top.layer.msg(outResult.msg, { icon: 6 });
+                   parent.location.reload();
+               } else {
+                   if (outResult.msg != undefined) {
+                       top.layer.msg(outResult.msg, { icon: 5 });
+                   } else {
+                       top.layer.msg('程序异常', { icon: 5 });
+                   }
+               }
+           },
+           error: function (outResult) {
+               layer.close(index);
+               layer.msg("请求异常", { icon: 2 });
+           }
+       })
+   })
 })

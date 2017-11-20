@@ -67,8 +67,8 @@
 								pattern="yyyy-MM-dd HH:mm:ss" /></td>
 						<td><a class="layui-btn layui-btn-mini news_edit"><i
 								class="iconfont icon-edit"></i> 编辑</a><a
-							class="layui-btn layui-btn-normal layui-btn-mini news_collect"><i
-								class="layui-icon"></i> 收藏</a><a
+							class="layui-btn layui-btn-normal layui-btn-mini setAdminRole_btn" data-uid="${item.id }"><i
+								class="layui-icon"></i> 设置角色</a><a
 							class="layui-btn layui-btn-danger layui-btn-mini news_del"
 							data-id="1"><i class="layui-icon"></i> 删除</a></td>
 					</tr>
@@ -80,7 +80,7 @@
 		</table>
 	</div>
 	<div id="page"></div>
-	
 
+	<script type="text/javascript" src="${ctx}static/page/admin/userlist.js"></script>
 </body>
 </html>

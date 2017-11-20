@@ -19,11 +19,24 @@
       and sys_role_id = #{sys_role_id,jdbcType=BIGINT}
       and sys_menu_id = #{sys_menu_id,jdbcType=BIGINT}
   </delete>
+  <delete id="deleteByRoleId" parameterType="java.lang.Long" >
+    delete from sys_role_menu
+    where sys_role_id = #{roleId,jdbcType=BIGINT}
+  </delete>
   <insert id="insert" parameterType="net.ssm.system.web.pojo.SysRoleMenu" >
-    insert into sys_role_menu (id, sys_role_id, sys_menu_id
-      )
-    values (#{id,jdbcType=BIGINT}, #{sys_role_id,jdbcType=BIGINT}, #{sys_menu_id,jdbcType=BIGINT}
-      )
+  insert into sys_role_menu (id, sys_role_id, sys_menu_id
+  )
+  values (#{id,jdbcType=BIGINT}, #{sys_role_id,jdbcType=BIGINT}, #{sys_menu_id,jdbcType=BIGINT}
+  )
+</insert>
+  <insert id="insertBatch" parameterType="java.util.List" >
+    insert into sys_role_menu (sys_role_id, sys_menu_id)
+    values
+    <foreach collection ="list" item="item" index= "index" separator =",">
+      ( #{item.sys_role_id}, #{item.sys_menu_id})
+     </foreach >
+
+
   </insert>
   <insert id="insertSelective" parameterType="net.ssm.system.web.pojo.SysRoleMenu" >
     insert into sys_role_menu
@@ -51,7 +64,7 @@
     </trim>
   </insert>
   <select id="selectSysMenuByRoleId" parameterType="Long" resultMap="ResultMap">
-   SELECT b.*,c.id AS role_id,c.name AS role_name  FROM  sys_role_menu a  LEFT OUTER JOIN sys_menu b ON a.sys_menu_id =b.id   LEFT OUTER JOIN sys_role c ON c.id=a.sys_role_id WHERE a.sys_role_id=#{id,jdbcType=BIGINT}
+   SELECT b.*,c.id AS role_id,c.name AS role_name  FROM sys_role c  LEFT JOIN sys_role_menu a  ON c.id=a.sys_role_id LEFT  JOIN sys_menu b ON a.sys_menu_id =b.id    WHERE c.id=#{id,jdbcType=BIGINT}
 
   </select>
 </mapper>

@@ -17,18 +17,29 @@
 </head>
 
 
-  <input type="hidden" value="${rolename}" name="id">
+  <input type="hidden" value="${roleid}" name="id">
   <div class="layui-form-item">
     <label class="layui-form-label">角色名称</label>
     <div class="layui-input-block">
-      <input type="text" class="layui-input linksName" value="${rolename}" name="name" lay-verify="required" placeholder="请输入网站名称">
+      ${rolename}
     </div>
   </div>
 
 
 
-<div class="layui-form-item" id="tree-demo"></div>
+<div class="layui-form-item" >
+  <label class="layui-form-label">角色权限</label>
+  <div id="tree-demo">
 
+</div>
+
+</div>
+<div class="layui-form-item">
+  <div class="layui-input-block">
+    <button class="layui-btn" id="setrolemenu_btn">立即提交</button>
+
+  </div>
+</div>
 <script type="text/javascript">
   var hh=${nodelist};
 

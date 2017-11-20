@@ -1,18 +1,12 @@
 package net.ssm.core;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.annotation.Resource;
-
+import net.ssm.system.web.pojo.SysMenu;
+import net.ssm.system.web.pojo.SysUser;
+import net.ssm.system.web.service.SysMenuService;
+import net.ssm.system.web.service.SysUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
-import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -20,8 +14,10 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.ssm.system.web.pojo.SysUser;
-import net.ssm.system.web.service.SysUserService;
+import javax.annotation.Resource;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class ShiroRealm extends AuthorizingRealm{
 	
@@ -29,7 +25,8 @@ public class ShiroRealm extends AuthorizingRealm{
 	
 	@Resource
 	private SysUserService sysUserService;
-	
+	@Resource
+	private SysMenuService sysMenuService;
 	public ShiroRealm()
 	{
 		setName("SSMRealm");
@@ -43,10 +40,17 @@ public class ShiroRealm extends AuthorizingRealm{
 		//获取当前用户
 		SysUser sysUser  = (SysUser)SecurityUtils.getSubject().getSession().getAttribute("user");
 		Set<String> menuSet=new HashSet<String>();
-		menuSet.add("/home/index");
-		menuSet.add("/admin/userlist");
-		menuSet.add("/admin/userlist2");
-		menuSet.add("/menu/menulist");
+
+	    List<SysMenu> itemsList=sysMenuService.selectSysMenuListByuid(sysUser.getId());
+		for(SysMenu item: itemsList)
+		{
+			if(!menuSet.contains(item.getHref())){
+				menuSet.add(item.getHref());
+				System.out.println(item.getHref());
+			}
+		}
+
+
 		//根据用户获取角色对应的权限添加进去，由于还没有数据所以直接返回一个空的
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 		authorizationInfo.setStringPermissions(menuSet);

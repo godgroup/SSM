@@ -1,17 +1,15 @@
 package net.ssm.system.web.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Resource;
-
 import net.ssm.config.SysConfig;
 import net.ssm.system.web.dao.SysMenuMapper;
 import net.ssm.system.web.pojo.SysMenu;
 import net.ssm.system.web.pojo.menu.Node;
 import net.ssm.system.web.service.SysMenuService;
-
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class SysMenuServiceImpl implements SysMenuService {
@@ -20,9 +18,14 @@ public class SysMenuServiceImpl implements SysMenuService {
 	private SysMenuMapper sysMenuMapper;
 	@Override
 	public List<SysMenu> GetMenuList() {
-		
 		return	sysMenuMapper.selectSysMenuList();
 	}
+
+	@Override
+	public List<SysMenu> selectSysMenuListByuid(Long uid) {
+		return sysMenuMapper.selectSysMenuListByuid(uid);
+	}
+
 	@Override
 	public int insert(SysMenu menu) {
 		return	sysMenuMapper.insert(menu);
@@ -88,6 +91,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 			}
 			Node node=new Node();
 			node.setTitle(menu.getName());
+			node.setCheckboxValue(menu.getId());
 			node.setId(menu.getId());
 			node.setName(menu.getName());
 			node.setParentid(menu.getParent_id());
@@ -99,15 +103,16 @@ public class SysMenuServiceImpl implements SysMenuService {
 					node.setHref(SysConfig.getContextPath() + menu.getHref());
 				node.setIcon(menu.getIcon());
 			}
-			for (SysMenu roleMenu : roleMenuList) {
-				if(roleMenu.getId()==menu.getId())
-				{
-					node.setChecked(true);
-					node.setCheckboxValue(menu.getId());
-					break;
+			if(roleMenuList!=null){
+				for (SysMenu roleMenu : roleMenuList) {
+					if(roleMenu.getId()==menu.getId())
+					{
+						node.setChecked(true);
+
+						break;
+					}
 				}
 			}
-			
 			nodelist.add(node);
 		}
 		List<Node> list = new ArrayList<Node>();//递归好的菜单列表

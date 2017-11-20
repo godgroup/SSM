@@ -1,9 +1,9 @@
 package net.ssm.system.web.service;
 
-import java.util.List;
-
 import net.ssm.system.web.pojo.SysMenu;
 import net.ssm.system.web.pojo.menu.Node;
+
+import java.util.List;
 
 
 public interface SysMenuService {
@@ -12,7 +12,13 @@ public interface SysMenuService {
 	 * @return
 	 */
 	List<SysMenu> GetMenuList();
-	
+
+	/**
+	 * 根据uid获取用户的菜单
+	 * @param uid
+	 * @return
+	 */
+	List<SysMenu> selectSysMenuListByuid(Long uid);
 	int insert(SysMenu menu);
 	
 	SysMenu selectByPrimaryKey(Long id);

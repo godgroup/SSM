@@ -1,8 +1,8 @@
 package net.ssm.system.web.dao;
 
-import java.util.List;
-
 import net.ssm.system.web.pojo.SysMenu;
+
+import java.util.List;
 
 public interface SysMenuMapper {
     int deleteByPrimaryKey(Long id);
@@ -18,4 +18,12 @@ public interface SysMenuMapper {
     int updateByPrimaryKey(SysMenu record);
     
     List<SysMenu> selectSysMenuList();
+
+    /**
+     * 根据登录uid获取用户的菜单
+     * @param uid
+     * @return
+     */
+    List<SysMenu> selectSysMenuListByuid(Long uid);
+
 }
