@@ -41,12 +41,12 @@ public class PermissionFilter extends AccessControlFilter {
 		System.out.println("请求的url"+uri);
 		if(SysConfig.getContextPath()==null&&basePath!=null)
 			SysConfig.setContextPath(basePath);
-		return Boolean.TRUE;
-//		if(subject.isPermitted(uri)){
-//			return Boolean.TRUE;
-//		}
-//
-//		return Boolean.FALSE;
+		//return Boolean.TRUE;
+		if(subject.isPermitted(uri)){
+			return Boolean.TRUE;
+		}
+
+		return Boolean.FALSE;
 	}
 
 	@Override

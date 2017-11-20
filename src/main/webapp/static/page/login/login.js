@@ -15,7 +15,13 @@ layui.config({
 	
 	//登录按钮事件
 	form.on("submit(login)",function(data){
-		window.location.href = "../../index.html";
+		$.post('/SSM/admin/loginValidate',$('#forms').serialize(),function(result){
+			if(result.success){
+				window.location.href=ctx+'home/index';
+			}else{
+				alert(result.data);
+			}
+		},'json');
 		return false;
 	})
 })
