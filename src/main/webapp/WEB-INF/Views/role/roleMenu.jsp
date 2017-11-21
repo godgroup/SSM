@@ -21,18 +21,25 @@
   <div class="layui-form-item">
     <label class="layui-form-label">角色名称</label>
     <div class="layui-input-block">
-      ${rolename}
+      <label class="layui-form-label"> ${rolename}</label>
     </div>
   </div>
 
 
 
-<div  >
-  <label class="layui-form-label">角色权限</label>
-
-
+<div style="width: 56px;
+    margin-left: 37px;
+    padding: 2px 2px;
+    float: left;" >
+ 角色权限
 </div>
-<div id="tree-demo" style="margin-left: 25px">
+<div id="tree-demo" style="margin-left: 142px">
+</div>
+<div class="layui-form-item">
+  <div class="layui-input-block">
+
+
+  </div>
 </div>
 <div class="layui-form-item">
   <div class="layui-input-block">

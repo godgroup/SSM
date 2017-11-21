@@ -108,7 +108,6 @@ public class SysMenuServiceImpl implements SysMenuService {
 					if(roleMenu.getId()==menu.getId())
 					{
 						node.setChecked(true);
-
 						break;
 					}
 				}
@@ -119,6 +118,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 		
 		for (Node item : nodelist) {
 			if (item.getParentid() == 0) {
+				item.setSpread(true);
 				item.setChildren(addchild(item.getId(),nodelist));
 				list.add(item);
 			}

@@ -126,6 +126,7 @@
 		<property name="filterChainDefinitions">
 			<value>
 				/admin/login = anon
+				/admin/logout = anon
 				/home/index = anon
 				/admin/userlist= anon
 				/admin/loginValidate = anon

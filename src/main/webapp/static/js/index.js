@@ -126,9 +126,30 @@ layui.config({
 
 	//退出
 	$(".signOut").click(function(){
-		window.sessionStorage.removeItem("menu");
-		menu = [];
-		window.sessionStorage.removeItem("curmenu");
+		$.ajax({
+			//contentType: "application/json",
+			type: 'post',
+			url: '/SSM/admin/logout',
+			dataType:"json",
+			data: {},
+			success: function (outResult) {
+				if (outResult.result) {
+					layer.msg(outResult.msg, { icon: 6 });
+					location.href="/SSM/admin/login";
+				} else {
+					if (outResult.msg != undefined) {
+						layer.msg(outResult.msg, { icon: 5 });
+
+					} else {
+						layer.msg('程序异常', { icon: 5 });
+					}
+				}
+			},
+			error: function (outResult) {
+				layer.close(index);
+				layer.msg("请求异常", { icon: 2 });
+			}
+		})
 	})
 
 	//隐藏左侧导航
@@ -228,7 +249,7 @@ layui.config({
 				var btn = layero.find('.layui-layer-btn');
 				btn.css('text-align', 'center');
 				btn.on("click",function(){
-					window.sessionStorage.setItem("showNotice","true");
+
 				})
 				if($(window).width() > 432){  //如果页面宽度不足以显示顶部“系统公告”按钮，则不提示
 					btn.on("click",function(){
@@ -240,10 +261,7 @@ layui.config({
 	        }
 	    });
 	}
-	//判断是否处于锁屏状态(如果关闭以后则未关闭浏览器之前不再显示)
-	if(window.sessionStorage.getItem("lockcms") != "true" && window.sessionStorage.getItem("showNotice") != "true"){
-		showNotice();
-	}
+
 	$(".showNotice").on("click",function(){
 		showNotice();
 	})

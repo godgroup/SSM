@@ -9,7 +9,7 @@
  */
 layui.config({
     base : "/SSM/static/js/"
-}).use(['layer','jquery',],function(){
+}).use(['layer','form','jquery'],function(){
     var layer = parent.layer === undefined ? layui.layer : parent.layer,
 
         $ = layui.jquery;

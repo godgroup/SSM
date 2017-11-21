@@ -16,10 +16,10 @@ layui.config({
 	//登录按钮事件
 	form.on("submit(login)",function(data){
 		$.post('/SSM/admin/loginValidate',$('#forms').serialize(),function(result){
-			if(result.success){
+			if(result.result){
 				window.location.href=ctx+'home/index';
 			}else{
-				alert(result.data);
+				layer.msg(result.msg, { icon: 5 });
 			}
 		},'json');
 		return false;

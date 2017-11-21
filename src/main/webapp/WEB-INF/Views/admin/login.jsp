@@ -18,13 +18,13 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="format-detection" content="telephone=no">
 
-
-
-	<link rel="stylesheet" href="/SSM/static/layui/css/layui.css" media="all" />
-	<link rel="stylesheet" href="/SSM/static/css/login.css" media="all" />
 	<script type="text/javascript">
 		var ctx = "${ctx}";
 	</script>
+
+	<link rel="stylesheet" href="${ctx}static/layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="/SSM/static/css/login.css" media="all" />
+
 	<title>图书管理系统登录</title>
 </head>
 <body>

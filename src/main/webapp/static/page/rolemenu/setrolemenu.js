@@ -121,7 +121,7 @@ layui.config({
 
 
    $("#setrolemenu_btn").click(function(){
-       console.log("我是提交的开始");
+
        var roleId=$('input[name="id"]').val();
        var roleName=$('input[name="name"]').val();
        var menus = "";

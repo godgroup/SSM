@@ -77,23 +77,31 @@ public class AdminRoleController {
     @RequestMapping(value="doSetUserRole",method = RequestMethod.POST)
     public Map<String,Object> doSetRoleMenu(Long uid,String roles) {
         Map<String,Object>resultmap=new HashMap<String,Object>();
-        if(uid==null|| roles=="")
+        if(uid==null)
         {
             resultmap.put("result", false);
             resultmap.put("msg", "参数有误");
             return resultmap;
         }
-        List<SysUserRole> list= new ArrayList<>();
-        String[] rolesArray = roles.split(",");
-        for (int i = 0; i <rolesArray.length ; i++) {
-            SysUserRole userRole=new SysUserRole();
-            userRole.setSys_user_id(uid);
-            userRole.setSys_role_id(Long.parseLong(rolesArray[i]));
-            list.add(userRole);
+
+        int IsSucess=-1;
+        if(roles=="")
+        {
+            IsSucess=sysUserRoleService.deleteByuid(uid);
         }
-        //删除已经设置的角色
-        sysUserRoleService.deleteByuid(uid);
-        int IsSucess=  sysUserRoleService.insertBatch(list);
+        else {
+            List<SysUserRole> list= new ArrayList<>();
+            String[] rolesArray = roles.split(",");
+            for (int i = 0; i <rolesArray.length ; i++) {
+                SysUserRole userRole=new SysUserRole();
+                userRole.setSys_user_id(uid);
+                userRole.setSys_role_id(Long.parseLong(rolesArray[i]));
+                list.add(userRole);
+            }
+            //删除已经设置的角色
+            IsSucess=sysUserRoleService.deleteByuid(uid);
+            IsSucess=sysUserRoleService.insertBatch(list);
+        }
         if(IsSucess>0) {
             resultmap.put("result", true);
             resultmap.put("msg", "设置角色成功");

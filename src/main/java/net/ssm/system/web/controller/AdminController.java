@@ -1,18 +1,7 @@
 package net.ssm.system.web.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
-
-
-
-import net.ssm.system.web.pojo.SysMenu;
 import net.ssm.system.web.pojo.SysUser;
 import net.ssm.system.web.service.SysUserService;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -22,6 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("admin")
@@ -42,31 +36,8 @@ public class AdminController {
         return modelAndView;
 		
 	} 
-	@RequestMapping("userlist2")
-	public ModelAndView index2(){
-		 List<SysUser> itemsList = sysUserService.GetUser();
-		
 
-        ModelAndView modelAndView=new ModelAndView();
-        modelAndView.addObject("itemsList",itemsList);
-        //指定逻辑视图名itemsList.jsp
-        modelAndView.setViewName("admin/userlist");
 
-        return modelAndView;
-		
-	} @RequestMapping("userlist3")
-	public ModelAndView index3(){
-		 List<SysUser> itemsList = sysUserService.GetUser();
-		
-
-       ModelAndView modelAndView=new ModelAndView();
-       modelAndView.addObject("itemsList",itemsList);
-       //指定逻辑视图名itemsList.jsp
-       modelAndView.setViewName("admin/userlist");
-
-       return modelAndView;
-		
-	} 
 	/**
 	 * 登录页面
 	 */
@@ -85,13 +56,13 @@ public class AdminController {
 		Map<String,Object> result = new HashMap<String,Object>();
 		
 		if (StringUtils.isBlank(loginName)) {
-			result.put("success",false);
-			result.put("data","登录名为空");
+			result.put("result",false);
+			result.put("msg","登录名为空");
 			return result;
 		}
 		if (StringUtils.isBlank(pswd)) {
-			result.put("success",false);
-			result.put("data","密码为空");
+			result.put("result",false);
+			result.put("msg","密码为空");
 			return result;
 		}
 		
@@ -101,25 +72,26 @@ public class AdminController {
 		
 		try{
 			subject.login(token);
-			result.put("success",true);
+			result.put("result",true);
 		}catch(UnknownAccountException e){
-			result.put("data",e.getMessage());
-			result.put("success",false);
+			result.put("msg",e.getMessage());
+			result.put("result",false);
 		}
 		return result;
 	}
 	@ResponseBody
 	@RequestMapping(value="logout")
 	public Map<String,Object> logout() {
-		Map<String,Object> result = new HashMap<String,Object>();
+		Map<String,Object> resultmap = new HashMap<String,Object>();
 
 		Subject subject = SecurityUtils.getSubject();
 		if (subject.isAuthenticated()) {
 			subject.logout(); // session 会销毁，在SessionListener监听session销毁，清理权限缓存
 
 		}
-		result.put("success",true);
-		result.put("data","退出成功");
-		return result;
+		resultmap.put("result", true);
+		resultmap.put("msg", "退出成功");
+
+		return resultmap;
 	}
 }
