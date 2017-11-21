@@ -27,12 +27,12 @@
 
 
 
-<div class="layui-form-item" >
+<div  >
   <label class="layui-form-label">角色权限</label>
-  <div id="tree-demo">
+
 
 </div>
-
+<div id="tree-demo" style="margin-left: 25px">
 </div>
 <div class="layui-form-item">
   <div class="layui-input-block">

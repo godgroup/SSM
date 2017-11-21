@@ -108,4 +108,18 @@ public class AdminController {
 		}
 		return result;
 	}
+	@ResponseBody
+	@RequestMapping(value="logout")
+	public Map<String,Object> logout() {
+		Map<String,Object> result = new HashMap<String,Object>();
+
+		Subject subject = SecurityUtils.getSubject();
+		if (subject.isAuthenticated()) {
+			subject.logout(); // session 会销毁，在SessionListener监听session销毁，清理权限缓存
+
+		}
+		result.put("success",true);
+		result.put("data","退出成功");
+		return result;
+	}
 }
