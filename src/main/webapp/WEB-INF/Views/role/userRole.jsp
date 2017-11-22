@@ -19,15 +19,17 @@
     </div>
   </div>
   <div class="layui-form-item">
-    <label class="layui-form-label">用户姓名</label>
+    <label class="layui-form-label">用户角色</label>
     <div class="layui-input-block">
       <c:forEach items="${itemsListVo}" var="item">
-        ${item.name}  <input style="display:inline " type="checkbox" name="roles" value="${item.id}" title="${item.name}" <c:if test="${item.checked==1}">checked</c:if> >
+        <input  type="checkbox" name="roles" value="${item.id}" title="${item.name}" <c:if test="${item.checked==1}">checked</c:if> >
       </c:forEach>
     </div>
   </div>
 
-
+  <%--<c:forEach items="${itemsListVo}" var="item">--%>
+    <%--${item.name}  <input style="display:inline " type="checkbox" name="roles" value="${item.id}" title="${item.name}" <c:if test="${item.checked==1}">checked</c:if> >--%>
+  <%--</c:forEach>--%>
 
   <div class="layui-form-item">
     <div class="layui-input-block">

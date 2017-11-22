@@ -108,6 +108,7 @@
 	
 	<!--项目的shiro-->
 	<bean id="permission" class="net.ssm.core.PermissionFilter"/>
+	<bean id="login" class="net.ssm.core.LoginFilter"/>
 	<bean id="ShiroRealm" class="net.ssm.core.ShiroRealm" />
 	<!--用户授权信息Cache, 采用EhCache -->
 	<bean id="shiroEhcacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
@@ -125,10 +126,11 @@
 		<property name="loginUrl" value="/admin/login" />
 		<property name="filterChainDefinitions">
 			<value>
+				/ = anon
 				/admin/login = anon
 				/admin/logout = anon
-				/home/index = anon
-				/admin/userlist= anon
+				/home/index = login
+				/admin/userlist= login
 				/admin/loginValidate = anon
 				/static/** = anon
 				/common/unauthorize = anon
@@ -139,6 +141,7 @@
 		<property name="filters">
            <util:map>
              <entry key="permission" value-ref="permission"></entry>
+			   <entry key="login" value-ref="login"></entry>
 			 </util:map>
        </property>
 	</bean>

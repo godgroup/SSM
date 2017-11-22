@@ -51,17 +51,14 @@ public class PermissionFilter extends AccessControlFilter {
 
 	@Override
 	protected boolean onAccessDenied(ServletRequest request,
-			ServletResponse response) throws Exception {
-		
-			Subject subject = getSubject(request, response);  
-	        if (null == subject.getPrincipal()) {//表示没有登录，重定向到登录页面  
-	            saveRequest(request);  
-	            WebUtils.issueRedirect(request, response, "/admin/login");  
-	        } else {  
-	           
-	                WebUtils.issueRedirect(request, response, "/common/unauthorize");  
-	            
-	        }  
+		ServletResponse response) throws Exception {
+		Subject subject = getSubject(request, response);
+		if (null == subject.getPrincipal()) {//表示没有登录，重定向到登录页面
+	         saveRequest(request);
+			 WebUtils.issueRedirect(request, response, "/admin/login");
+		} else {
+			WebUtils.issueRedirect(request, response, "/common/unauthorize");
+		}
 		return Boolean.FALSE;
 	}
 
