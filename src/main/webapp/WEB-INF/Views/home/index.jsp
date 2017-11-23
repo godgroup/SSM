@@ -4,7 +4,7 @@
 <html>
 <head>
 <%@ include file="/include/lib.jsp" %>
-<title>亚伦王横说竖说</title>
+<title>图书管理系统-知乐博客</title>
 </head>
 <body class="main_body">
 	<div class="layui-layout layui-layout-admin">
