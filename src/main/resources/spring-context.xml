@@ -126,7 +126,7 @@
 		<property name="loginUrl" value="/admin/login" />
 		<property name="filterChainDefinitions">
 			<value>
-				/ = anon
+				/ = login
 				/admin/login = anon
 				/admin/logout = anon
 				/home/index = login

@@ -4,7 +4,7 @@ package net.ssm.config;
  * Created by user on 2017/11/14.
  */
 public  class SysConfig {
-    private static  String contextPath;
+    private static  String contextPath="/SSM";
     public  static void  setContextPath(String contextPath)
     {
         SysConfig.contextPath=contextPath;
