@@ -192,7 +192,7 @@
 
   </select>
   <select id="selectSysMenuListByuid" parameterType="Long" resultType="net.ssm.system.web.pojo.SysMenu">
-      SELECT d.*  FROM sys_user a INNER JOIN sys_user_role b ON a.id=b.sys_user_id INNER JOIN sys_role_menu c ON c.sys_role_id=b.sys_role_id INNER JOIN sys_menu d ON d.id=c.sys_menu_id WHERE a.id=#{uid}
+      SELECT DISTINCT  d.*  FROM sys_user a INNER JOIN sys_user_role b ON a.id=b.sys_user_id INNER JOIN sys_role_menu c ON c.sys_role_id=b.sys_role_id INNER JOIN sys_menu d ON d.id=c.sys_menu_id WHERE a.id=#{uid}
 
   </select>
 </mapper>
