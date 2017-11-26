@@ -135,7 +135,7 @@
 				/static/** = anon
 				/common/unauthorize = anon
 				/menu/getNodes = anon
-				/** = permission
+				/** = login,permission
 			</value>
 		</property>
 		<property name="filters">

@@ -1,11 +1,12 @@
 package net.ssm.core;
 
-import net.ssm.common.WebUtils;
+import net.ssm.common.MyWebUtils;
 import net.ssm.system.web.pojo.SysUser;
 import org.apache.shiro.web.filter.AccessControlFilter;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,24 +17,29 @@ public class LoginFilter extends AccessControlFilter {
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
         SysUser token = UserManager.getCurrentSysUser();
-
+        HttpServletRequest httpRequest = ((HttpServletRequest)request);
+        System.out.println("我是登录过滤"+httpRequest.getRequestURI());
         if(null != token || isLoginRequest(request, response)){// && isEnabled()
             return Boolean.TRUE;
         }
-        if (WebUtils.isAjax(request)) {// ajax请求
-            Map<String,Object> resultMap = new HashMap<String, Object>();
 
-            resultMap.put("result",false);
-            resultMap.put("msg","请您先登录");
-            WebUtils.out(response, resultMap);
-        }
         return Boolean.FALSE ;
     }
 
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
-        //保存Request和Response 到登录后的链接
-        saveRequestAndRedirectToLogin(request, response);
+        if (MyWebUtils.isAjax(request)) {// ajax请求
+            Map<String,Object> resultMap = new HashMap<String, Object>();
+
+            resultMap.put("result",false);
+            resultMap.put("msg","请您先登录");
+            MyWebUtils.out(response, resultMap);
+        }
+        else {
+            //保存Request和Response 到登录后的链接
+            saveRequestAndRedirectToLogin(request, response);
+        }
+
         return Boolean.FALSE ;
     }
 }

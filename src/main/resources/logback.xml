@@ -61,6 +61,8 @@
 		</encoder>
 		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
 			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
 		</filter>
 	</appender>
 	<root>

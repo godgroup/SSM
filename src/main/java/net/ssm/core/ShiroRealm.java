@@ -46,7 +46,7 @@ public class ShiroRealm extends AuthorizingRealm{
 		{
 			if(!menuSet.contains(item.getHref())){
 				menuSet.add(item.getHref());
-				System.out.println(item.getHref());
+				//System.out.println(item.getHref());
 			}
 		}
 

@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * Web处理类
  */
-public class WebUtils {
+public class MyWebUtils {
 
     /**
      * 是否是Ajax请求

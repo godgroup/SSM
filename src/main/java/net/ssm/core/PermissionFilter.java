@@ -1,5 +1,6 @@
 package net.ssm.core;
-import net.ssm.config.SysConfig;
+
+import net.ssm.common.MyWebUtils;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.apache.shiro.web.util.WebUtils;
@@ -7,6 +8,8 @@ import org.apache.shiro.web.util.WebUtils;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -21,7 +24,7 @@ public class PermissionFilter extends AccessControlFilter {
 	@Override
 	protected boolean isAccessAllowed(ServletRequest request,
 			ServletResponse response, Object mappedValue) throws Exception {
-		
+
 		//先判断带参数的权限判断
 		Subject subject = getSubject(request, response);
 		if(null != mappedValue){
@@ -38,9 +41,8 @@ public class PermissionFilter extends AccessControlFilter {
 		if(null != uri && uri.startsWith(basePath)){
 			uri = uri.replaceFirst(basePath, "");
 		}
-		System.out.println("请求的url"+uri);
-		if(SysConfig.getContextPath()==null&&basePath!=null)
-			SysConfig.setContextPath(basePath);
+		System.out.println("我是权限过滤"+uri);
+		System.out.println("basepath"+basePath);
 		//return Boolean.TRUE;
 		if(subject.isPermitted(uri)){
 			return Boolean.TRUE;
@@ -52,11 +54,14 @@ public class PermissionFilter extends AccessControlFilter {
 	@Override
 	protected boolean onAccessDenied(ServletRequest request,
 		ServletResponse response) throws Exception {
-		Subject subject = getSubject(request, response);
-		if (null == subject.getPrincipal()) {//表示没有登录，重定向到登录页面
-	         saveRequest(request);
-			 WebUtils.issueRedirect(request, response, "/admin/login");
-		} else {
+		if (net.ssm.common.MyWebUtils.isAjax(request)) {// ajax请求
+			Map<String,Object> resultMap = new HashMap<String, Object>();
+
+			resultMap.put("result",false);
+			resultMap.put("msg","您没有该权限");
+			MyWebUtils.out(response, resultMap);
+		}
+		else{
 			WebUtils.issueRedirect(request, response, "/common/unauthorize");
 		}
 		return Boolean.FALSE;
