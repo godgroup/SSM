@@ -17,4 +17,5 @@ public interface SysRoleMenuService {
 	  RoleMenuVo  selectSysMenuByRoleId(Long roleId);
 
 	  int insertBatch(List<SysRoleMenu> record);
+	  int setRoleMenu(Long roleId,String menus);
 }

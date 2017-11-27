@@ -41,8 +41,7 @@ public class PermissionFilter extends AccessControlFilter {
 		if(null != uri && uri.startsWith(basePath)){
 			uri = uri.replaceFirst(basePath, "");
 		}
-		System.out.println("我是权限过滤"+uri);
-		System.out.println("basepath"+basePath);
+
 		//return Boolean.TRUE;
 		if(subject.isPermitted(uri)){
 			return Boolean.TRUE;

@@ -6,7 +6,6 @@ import org.apache.shiro.web.filter.AccessControlFilter;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,8 +16,6 @@ public class LoginFilter extends AccessControlFilter {
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
         SysUser token = UserManager.getCurrentSysUser();
-        HttpServletRequest httpRequest = ((HttpServletRequest)request);
-        System.out.println("我是登录过滤"+httpRequest.getRequestURI());
         if(null != token || isLoginRequest(request, response)){// && isEnabled()
             return Boolean.TRUE;
         }

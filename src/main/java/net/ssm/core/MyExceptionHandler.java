@@ -1,17 +1,16 @@
 package net.ssm.core;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.alibaba.fastjson.support.spring.FastJsonJsonView;
+import net.ssm.common.MyWebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.fastjson.support.spring.FastJsonJsonView;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MyExceptionHandler implements HandlerExceptionResolver {
 	private static final Logger log = LoggerFactory.getLogger(MyExceptionHandler.class);
@@ -19,8 +18,7 @@ public class MyExceptionHandler implements HandlerExceptionResolver {
 	@Override
 	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler,
 			Exception ex) {
-		String requestType = request.getHeader("X-Requested-With");
-		
+
 		String error = ex.toString().trim();
 		
 		ModelAndView model = new ModelAndView();
@@ -29,16 +27,16 @@ public class MyExceptionHandler implements HandlerExceptionResolver {
 		
 		StringBuilder errorMess = new StringBuilder(7);
 		
-		if (requestType!=null) {
+		if (MyWebUtils.isAjax(request)) {
 			//AJAX请求
 			errorMess.append("\r\nAJAX请求：");
 			
 			Map<String, Object> result = new HashMap<String,Object>();
 		
-			result.put("msg", false);
+			result.put("result", false);
 			
-			result.put("data","请求出现错误");
-			
+			result.put("msg", "系统出现错误");
+
 			view.setAttributesMap(result);
 			
 			model.setView(view);
