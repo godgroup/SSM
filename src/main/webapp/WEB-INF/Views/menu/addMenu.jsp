@@ -62,6 +62,6 @@
 		</div>
 	</form>
 	
-	<script type="text/javascript" src="${ctx}static/page/links/linksAdd.js?v=4.0"></script>
+	<script type="text/javascript" src="${ctx}static/page/menu/addmenu.js"></script>
 </body>
 </html>

@@ -30,10 +30,8 @@ public class AdminController {
 
         ModelAndView modelAndView=new ModelAndView();
         modelAndView.addObject("itemsList",itemsList);
-        //指定逻辑视图名itemsList.jsp
-        modelAndView.setViewName("admin/userlist");
-
-        return modelAndView;
+		modelAndView.setViewName("admin/userlist");
+		return modelAndView;
 		
 	} 
 

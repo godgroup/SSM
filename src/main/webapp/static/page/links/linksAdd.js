@@ -52,16 +52,15 @@ layui.config({
  		 var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
  		 //var index = layer.load(1);
          $.ajax({
-             contentType: "application/json",
+             //contentType: "application/json",
              type: 'post',
              async: false,
              url: '/SSM/menu/addSysMenu',
              dataType:"json", 
-             data: JSON.stringify(data.field),
+             data:$("form").serialize(),
              success: function (outResult) {
             	 top.layer.close(index);
-            	 console.log(outResult.result);
-            	 console.log(outResult.msg);
+
                  if (outResult.result) {
                 	 top.layer.msg(outResult.msg, { icon: 6 });
                 	 parent.location.reload();//location.reload(true);

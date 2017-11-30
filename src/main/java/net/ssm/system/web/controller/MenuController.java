@@ -6,7 +6,6 @@ import net.ssm.system.web.pojo.menu.Node;
 import net.ssm.system.web.service.SysMenuService;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,8 +28,8 @@ public class MenuController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "menulist", method = RequestMethod.GET)
-	public ModelAndView index() {
+	@RequestMapping(value = "menulist")
+	public ModelAndView index(Integer page) {
 		List<SysMenu> itemsList = sysMenuService.GetMenuList();
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("itemsList", itemsList);
@@ -79,7 +78,7 @@ public class MenuController {
 
 	@ResponseBody
 	@RequestMapping(value = "addSysMenu", method = RequestMethod.POST)
-	public Map<String, Object> addSysMenu(@RequestBody SysMenu menu) {
+	public Map<String, Object> addSysMenu(SysMenu menu) {
 		Map<String, Object> resultmap = new HashMap<String, Object>();
 
 		int ret=-1;

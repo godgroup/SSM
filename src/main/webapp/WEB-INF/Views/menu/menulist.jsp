@@ -8,6 +8,9 @@
 <link rel="stylesheet" href="${ctx}static/css/news.css" media="all" />
 </head>
 <body class="childrenBody">
+	<form method="post" id="myform">
+		<input type="hidden" name="page" id="currpage">
+	</form>
 	<blockquote class="layui-elem-quote news_search">
 		<div class="layui-inline">
 			<div class="layui-input-inline">
@@ -80,6 +83,6 @@
 		</table>
 	</div>
 	<div id="page"></div>
-	<script type="text/javascript" src="${ctx}static/page/links/linksList.js"></script>
+	<script type="text/javascript" src="${ctx}static/page/menu/menulist.js" ></script>
 </body>
 </html>
