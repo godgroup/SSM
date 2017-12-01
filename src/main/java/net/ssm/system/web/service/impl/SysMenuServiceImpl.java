@@ -1,5 +1,7 @@
 package net.ssm.system.web.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import net.ssm.config.SysConfig;
 import net.ssm.system.web.dao.SysMenuMapper;
 import net.ssm.system.web.pojo.SysMenu;
@@ -19,8 +21,22 @@ public class SysMenuServiceImpl implements SysMenuService {
 	@Override
 	public List<SysMenu> GetMenuList() {
 		return	sysMenuMapper.selectSysMenuList();
-	}
 
+	}
+	@Override
+	public PageInfo<SysMenu> GetPageMenuList(Integer pageNo,Integer pageSize) {
+		pageNo=pageNo==null?1:pageNo;
+		pageSize=pageSize==null?5:pageSize;
+		//获取第1页，10条内容，默认查询总数count
+		PageHelper.startPage(pageNo, pageSize);
+		List<SysMenu> products = sysMenuMapper.selectSysMenuList();
+
+		//将查询结果使用pageInfo包装
+		PageInfo<SysMenu> page = new  PageInfo<SysMenu>(products);
+		//测试PageInfo全部属性
+		//PageInfo包含了非常全面的分页属性
+		return	page;
+	}
 	@Override
 	public List<SysMenu> selectSysMenuListByuid(Long uid) {
 		return sysMenuMapper.selectSysMenuListByuid(uid);

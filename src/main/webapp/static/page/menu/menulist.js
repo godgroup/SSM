@@ -76,7 +76,7 @@ layui.config({
 
     laypage({
         cont: 'page'
-        ,pages: 100
+        ,pages: total
         ,curr: location.hash.replace('#!fenye=', '') //获取hash值为fenye的当前页
         ,hash: 'fenye' //自定义hash值
         ,jump: function(obj, first){

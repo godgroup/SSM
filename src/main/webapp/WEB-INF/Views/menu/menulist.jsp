@@ -9,7 +9,8 @@
 </head>
 <body class="childrenBody">
 	<form method="post" id="myform">
-		<input type="hidden" name="page" id="currpage">
+		<input type="hidden" name="pageNo" id="currpage">
+
 	</form>
 	<blockquote class="layui-elem-quote news_search">
 		<div class="layui-inline">
@@ -82,7 +83,10 @@
 			</tbody>
 		</table>
 	</div>
-	<div id="page"></div>
+	<div id="page" style="margin:0 auto; "></div>
+	<script>
+		var total=${totalPage };
+	</script>
 	<script type="text/javascript" src="${ctx}static/page/menu/menulist.js" ></script>
 </body>
 </html>

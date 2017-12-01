@@ -1,5 +1,6 @@
 package net.ssm.system.web.controller;
 
+import com.github.pagehelper.PageInfo;
 import net.ssm.system.web.pojo.SysMenu;
 import net.ssm.system.web.pojo.SysUser;
 import net.ssm.system.web.pojo.menu.Node;
@@ -29,10 +30,12 @@ public class MenuController {
 	 * @return
 	 */
 	@RequestMapping(value = "menulist")
-	public ModelAndView index(Integer page) {
-		List<SysMenu> itemsList = sysMenuService.GetMenuList();
+	public ModelAndView index(Integer pageNo,Integer pageSize) {
+
+		PageInfo<SysMenu> itemsList = sysMenuService.GetPageMenuList(pageNo,pageSize);
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("itemsList", itemsList);
+		modelAndView.addObject("itemsList", itemsList.getList());
+		modelAndView.addObject("totalPage", itemsList.getPages());
 		// 指定逻辑视图名itemsList.jsp
 		modelAndView.setViewName("menu/menulist");
 
