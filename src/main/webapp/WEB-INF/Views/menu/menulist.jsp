@@ -8,20 +8,21 @@
 <link rel="stylesheet" href="${ctx}static/css/news.css" media="all" />
 </head>
 <body class="childrenBody">
-	<form method="post" id="myform">
-		<input type="hidden" name="pageNo" id="currpage">
-
+	<form method="post" ACTION="${ctx}menu/menulist" id="myform">
+		<input type="hidden" name="pageNo" id="currpage" value="1">
+		<input type="hidden" name="pageSize" value="5">
+		<input type="hidden" name="keyWords" >
 	</form>
 	<blockquote class="layui-elem-quote news_search">
 		<div class="layui-inline">
 			<div class="layui-input-inline">
-				<input type="text" value="" placeholder="请输入关键字"
+				<input type="text" value="${keyWords}" id="search_input" placeholder="请输入关键字"
 					class="layui-input search_input">
 			</div>
 			<a class="layui-btn search_btn">查询</a>
 		</div>
 		<div class="layui-inline">
-			<a class="layui-btn layui-btn-normal linksAdd_btn">添加</a>
+			<a class="layui-btn layui-btn-normal menuAdd_btn">添加</a>
 		</div>
 		
 		<div class="layui-inline">
@@ -86,6 +87,7 @@
 	<div id="page" style="margin:0 auto; "></div>
 	<script>
 		var total=${totalPage };
+		var currPage=${currPage };
 	</script>
 	<script type="text/javascript" src="${ctx}static/page/menu/menulist.js" ></script>
 </body>

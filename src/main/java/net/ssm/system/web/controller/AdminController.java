@@ -24,17 +24,26 @@ public class AdminController {
 	private SysUserService sysUserService;
 	
 	@RequestMapping("userlist")
-	public ModelAndView index(){
+	public ModelAndView userlist(){
 		 List<SysUser> itemsList = sysUserService.GetUser();
-		
-
-        ModelAndView modelAndView=new ModelAndView();
+		 ModelAndView modelAndView=new ModelAndView();
         modelAndView.addObject("itemsList",itemsList);
 		modelAndView.setViewName("admin/userlist");
 		return modelAndView;
 		
-	} 
+	}
+	@RequestMapping("addUser")
+	public ModelAndView addUser(Long id){
+	    SysUser item=new SysUser();
+		if(id!=null){
+			item = sysUserService.selectByPrimaryKey(id);
+		}
+		ModelAndView modelAndView=new ModelAndView();
+		modelAndView.addObject("item",item);
+		modelAndView.setViewName("admin/addUser");
+		return modelAndView;
 
+	}
 
 	/**
 	 * 登录页面

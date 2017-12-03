@@ -1,6 +1,7 @@
 package net.ssm.system.web.dao;
 
 import net.ssm.system.web.pojo.SysMenu;
+import net.ssm.system.web.pojo.common.SearchVo;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public interface SysMenuMapper {
 
     int updateByPrimaryKey(SysMenu record);
     
-    List<SysMenu> selectSysMenuList();
+    List<SysMenu> selectSysMenuList(SearchVo searchVo);
 
     /**
      * 根据登录uid获取用户的菜单

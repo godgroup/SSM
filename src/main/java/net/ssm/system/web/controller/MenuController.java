@@ -3,6 +3,7 @@ package net.ssm.system.web.controller;
 import com.github.pagehelper.PageInfo;
 import net.ssm.system.web.pojo.SysMenu;
 import net.ssm.system.web.pojo.SysUser;
+import net.ssm.system.web.pojo.common.SearchVo;
 import net.ssm.system.web.pojo.menu.Node;
 import net.ssm.system.web.service.SysMenuService;
 import org.apache.shiro.SecurityUtils;
@@ -30,12 +31,19 @@ public class MenuController {
 	 * @return
 	 */
 	@RequestMapping(value = "menulist")
-	public ModelAndView index(Integer pageNo,Integer pageSize) {
-
-		PageInfo<SysMenu> itemsList = sysMenuService.GetPageMenuList(pageNo,pageSize);
+	public ModelAndView index(Integer pageNo,Integer pageSize,String keyWords) {
+		SearchVo searchVo=new SearchVo();
+		searchVo.setKeyWords(keyWords);
+		pageNo=pageNo==null?1:pageNo;
+		searchVo.setPageNo(pageNo);
+		pageSize=pageSize==null?5:pageSize;
+		searchVo.setPageSize(pageSize);
+		PageInfo<SysMenu> itemsList = sysMenuService.GetPageMenuList(searchVo);
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("itemsList", itemsList.getList());
 		modelAndView.addObject("totalPage", itemsList.getPages());
+		modelAndView.addObject("keyWords", keyWords);
+		modelAndView.addObject("currPage", pageNo);
 		// 指定逻辑视图名itemsList.jsp
 		modelAndView.setViewName("menu/menulist");
 
@@ -50,7 +58,6 @@ public class MenuController {
 		if(id!=null)
 		{
 			menu=sysMenuService.selectByPrimaryKey(id);
-			System.out.println(menu.getParent_id());
 		}
 		modelAndView.addObject("item", menu);
 		modelAndView.setViewName("menu/addMenu");

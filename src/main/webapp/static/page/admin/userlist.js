@@ -12,7 +12,34 @@ layui.config({
 
 
 
+    $(".userAdd_btn").click(function(){
+        var self=$(this);
+        var id=self.attr("data-id");
+        var url="",title="";
+        if(id!=undefined)
+        {
+            url=ctx+"admin/addUser?id="+id;
+            title="修改菜单";
+        }
+        else
+        {
+            url=ctx+"admin/addUser";
+            title="添加菜单";
+        }
+        var index = layui.layer.open({
+            title : title,
+            type : 2,
+            content : url,
+            success : function(layero, index){
+                setTimeout(function(){
+                    layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                },500)
+            }
+        })
 
+    })
 
     $(".setAdminRole_btn").click(function(){
         var self=$(this);

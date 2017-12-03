@@ -9,27 +9,7 @@ layui.config({
         laypage = layui.laypage,
         $ = layui.jquery;
 
-    //加载页面数据
-    var linksData = '';
-    $.ajax({
-        url : "../../json/linksList.json",
-        type : "get",
-        dataType : "json",
-        success : function(data){
-            linksData = data;
-            if(window.sessionStorage.getItem("addLinks")){
-                var addLinks = window.sessionStorage.getItem("addLinks");
-                linksData = JSON.parse(addLinks).concat(linksData);
-            }
-            //执行加载数据的方法
-            linksList();
-        }
-    })
-
-
-
-    //添加友情链接
-    $(".linksAdd_btn").click(function(){
+    $(".menuAdd_btn").click(function(){
         var self=$(this);
         var id=self.attr("data-id");
         var url="",title="";
@@ -61,37 +41,27 @@ layui.config({
         })
         layui.layer.full(index);
     })
-
-
-    //全选
-    form.on('checkbox(allChoose)', function(data){
-        var child = $(data.elem).parents('table').find('tbody input[type="checkbox"]:not([name="show"])');
-        child.each(function(index, item){
-            item.checked = data.elem.checked;
-        });
-        form.render('checkbox');
-    });
-
-
-
     laypage({
         cont: 'page'
         ,pages: total
-        ,curr: location.hash.replace('#!fenye=', '') //获取hash值为fenye的当前页
-        ,hash: 'fenye' //自定义hash值
+        ,curr: currPage //获取hash值为fenye的当前页
         ,jump: function(obj, first){
 
             if(!first){
-
-               //location.href="?page="+ obj.curr+"#!fenye="+obj.curr;
                 $("#currpage").val(obj.curr);
-                $("#myform").attr("action",ctx+"menu/menulist#!fenye="+obj.curr);
-                $("#myform").submit();
-
-            }
+               // $("#myform").attr("action",ctx+"menu/menulist#!fenye="+obj.curr);
+                myform();
+             }
         }
     });
-
+    function myform(){
+        var keywords=$("#search_input").val();
+        $("input[name='keyWords']").val(keywords);
+        $("#myform").submit();
+    }
+    $(".search_btn").click(function (){
+        myform();
+    })
     $("body").on("click",".links_del",function(){  //删除
         var _this = $(this);
         layer.confirm('确定删除此信息？',{icon:3, title:'提示信息'},function(index){
@@ -106,49 +76,4 @@ layui.config({
         });
     })
 
-    function linksList(that){
-        //渲染数据
-        function renderDate(data,curr){
-            var dataHtml = '';
-            if(!that){
-                currData = linksData.concat().splice(curr*nums-nums, nums);
-            }else{
-                currData = that.concat().splice(curr*nums-nums, nums);
-            }
-            if(currData.length != 0){
-                for(var i=0;i<currData.length;i++){
-                    dataHtml += '<tr>'
-                    +'<td><input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose"></td>'
-                    +'<td align="left">'+currData[i].linksName+'</td>'
-                    +'<td><a style="color:#1E9FFF;" target="_blank" href="'+currData[i].linksUrl+'">'+currData[i].linksUrl+'</a></td>'
-                    +'<td>'+currData[i].masterEmail+'</td>'
-                    +'<td>'+currData[i].linksTime+'</td>'
-                    +'<td>'+currData[i].showAddress+'</td>'
-                    +'<td>'
-                    +  '<a class="layui-btn layui-btn-mini links_edit"><i class="iconfont icon-edit"></i> 编辑</a>'
-                    +  '<a class="layui-btn layui-btn-danger layui-btn-mini links_del" data-id="'+data[i].linksId+'"><i class="layui-icon">&#xe640;</i> 删除</a>'
-                    +'</td>'
-                    +'</tr>';
-                }
-            }else{
-                dataHtml = '<tr><td colspan="7">暂无数据</td></tr>';
-            }
-            return dataHtml;
-        }
-
-        //分页
-        var nums = 13; //每页出现的数据量
-        if(that){
-            linksData = that;
-        }
-        laypage({
-            cont : "page",
-            pages : Math.ceil(linksData.length/nums),
-            jump : function(obj){
-                $(".links_content").html(renderDate(linksData,obj.curr));
-                $('.links_list thead input[type="checkbox"]').prop("checked",false);
-                form.render();
-            }
-        })
-    }
 })
