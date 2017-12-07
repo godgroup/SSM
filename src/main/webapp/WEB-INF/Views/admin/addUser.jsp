@@ -16,13 +16,13 @@
   <div class="layui-form-item">
     <label class="layui-form-label">登录用户名</label>
     <div class="layui-input-block">
-      <input type="text" class="layui-input linksName" value="${item.login_name}" name="login_name" lay-verify="required" placeholder="用于登录系统">
+      <input type="text" class="layui-input linksName" value="${item.login_name}" autocomplete="off" name="login_name" lay-verify="required" placeholder="用于登录系统">
     </div>
   </div>
   <div class="layui-form-item">
     <label class="layui-form-label">登录密码</label>
     <div class="layui-input-block">
-      <input type="password" class="layui-input linksUrl" value="${item.password}" name="password" lay-verify="required" placeholder="请输入登录密码">
+      <input type="password" class="layui-input linksUrl" value="${item.password}" autocomplete="off" name="password" lay-verify="required" placeholder="请输入登录密码">
     </div>
   </div>
   <div class="layui-form-item">
@@ -46,8 +46,8 @@
   <div class="layui-form-item">
     <label class="layui-form-label">是否禁用</label>
     <div class="layui-input-block">
-      <input type="radio" name="status" value="menu" title="enable" <c:if test="${item.status eq 'enable'}">checked</c:if>>
-      <input type="radio" name="status" value="page" title="disabled" <c:if test="${item.status eq 'disabled'}">checked</c:if>>
+      <input type="radio" name="status" value="enable" title="enable" <c:if test="${item.status eq 'enable'}">checked</c:if>>
+      <input type="radio" name="status" value="disabled" title="disabled" <c:if test="${item.status eq 'disabled'}">checked</c:if>>
 
     </div>
   </div>
@@ -67,6 +67,6 @@
   </div>
 </form>
 
-<script type="text/javascript" src="${ctx}static/page/menu/addmenu.js"></script>
+<script type="text/javascript" src="${ctx}static/page/admin/adduser.js"></script>
 </body>
 </html>

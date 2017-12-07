@@ -28,9 +28,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 	@Override
 	public PageInfo<SysMenu> GetPageMenuList(SearchVo searchVo) {
 		Integer pageNo=searchVo.getPageNo();
-
 		Integer pageSize=searchVo.getPageSize();
-
 		//获取第1页，10条内容，默认查询总数count
 		PageHelper.startPage(pageNo, pageSize);
 		List<SysMenu> products = sysMenuMapper.selectSysMenuList(searchVo);

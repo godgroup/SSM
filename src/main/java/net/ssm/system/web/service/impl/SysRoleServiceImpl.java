@@ -22,7 +22,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 	@Override
 	public int insert(SysRole Role) {
 		// TODO Auto-generated method stub
-		return 0;
+		return sysRoleMapper.insert(Role);
 	}
 
 	@Override
@@ -36,4 +36,8 @@ public class SysRoleServiceImpl implements SysRoleService {
 		return 0;
 	}
 
+	@Override
+	public int updateByPrimaryKey(SysRole record) {
+		return sysRoleMapper.updateByPrimaryKey(record);
+	}
 }

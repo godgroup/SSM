@@ -24,11 +24,8 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="net.ssm.system.web.pojo.SysRole" >
-    insert into sys_role (id, name, create_by, 
-      create_at, update_by, update_at, 
-      remarks)
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{create_by,jdbcType=VARCHAR}, 
-      #{create_at,jdbcType=TIMESTAMP}, #{update_by,jdbcType=VARCHAR}, #{update_at,jdbcType=TIMESTAMP}, 
+    insert into sys_role ( name, create_by,  remarks)
+    values ( #{name,jdbcType=VARCHAR}, #{create_by,jdbcType=VARCHAR},
       #{remarks,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="net.ssm.system.web.pojo.SysRole" >
@@ -107,9 +104,7 @@
   <update id="updateByPrimaryKey" parameterType="net.ssm.system.web.pojo.SysRole" >
     update sys_role
     set name = #{name,jdbcType=VARCHAR},
-      create_by = #{create_by,jdbcType=VARCHAR},
-      create_at = #{create_at,jdbcType=TIMESTAMP},
-      update_by = #{update_by,jdbcType=VARCHAR},
+     update_by = #{update_by,jdbcType=VARCHAR},
       update_at = #{update_at,jdbcType=TIMESTAMP},
       remarks = #{remarks,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}

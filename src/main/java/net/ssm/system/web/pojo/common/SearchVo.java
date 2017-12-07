@@ -9,6 +9,9 @@ public class SearchVo {
     private Integer PageSize;
 
     public Integer getPageNo() {
+        if(PageNo==null){
+            this.PageNo=1;
+        }
         return PageNo;
     }
 
@@ -17,6 +20,9 @@ public class SearchVo {
     }
 
     public Integer getPageSize() {
+        if(PageSize==null){
+            this.PageSize=10;
+        }
         return PageSize;
     }
 

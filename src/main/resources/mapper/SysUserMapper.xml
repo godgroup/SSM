@@ -18,11 +18,13 @@
     from sys_user
     where id = #{id,jdbcType=BIGINT}
   </select>
-    <select id="selectSysUser" parameterType="Long" resultType="net.ssm.system.web.pojo.SysUser">
+    <select id="selectSysUser" parameterType="net.ssm.system.web.pojo.common.SearchVo" resultType="net.ssm.system.web.pojo.SysUser">
     select 
     <include refid="Base_Column_List" />
-    from sys_user
-    
+    from sys_user  where 1=1
+    <if test="KeyWords != null and KeyWords!='' " >
+        and  login_name like CONCAT("%",#{KeyWords,jdbcType=VARCHAR},"%")
+   </if>
   </select>
   
   <select id="selectByNameAndPswd" parameterType="String" resultMap="BaseResultMap">
@@ -31,4 +33,27 @@
   	from sys_user
   	where login_name=#{0,jdbcType=VARCHAR} and password=#{1,jdbcType=VARCHAR}
   </select>
+  <insert id="insert" parameterType="net.ssm.system.web.pojo.SysUser" >
+    insert into sys_user ( login_name, password,
+    name, email, mobile,
+    status, login_ip, avatars, remarks
+    )
+    values ( #{login_name,jdbcType=BIGINT}, #{password,jdbcType=CHAR},
+    #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR},
+    #{status,jdbcType=VARCHAR}, #{login_ip,jdbcType=INTEGER}, #{avatars,jdbcType=CHAR}, #{remarks,jdbcType=VARCHAR}
+    )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="net.ssm.system.web.pojo.SysUser" >
+    update sys_user
+    set login_name = #{login_name,jdbcType=BIGINT},
+    password = #{password,jdbcType=CHAR},
+    name = #{name,jdbcType=VARCHAR},
+    mobile = #{mobile,jdbcType=VARCHAR},
+    status = #{status,jdbcType=VARCHAR},
+    login_ip = #{login_ip,jdbcType=VARCHAR},
+    avatars = #{avatars,jdbcType=INTEGER},
+    remarks = #{remarks,jdbcType=CHAR}
+
+    where id = #{id,jdbcType=BIGINT}
+  </update>
 </mapper>

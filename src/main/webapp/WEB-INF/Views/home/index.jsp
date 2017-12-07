@@ -1,11 +1,16 @@
+<%@ page import="net.ssm.core.UserManager" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <%@ include file="/include/lib.jsp" %>
+
 <title>图书管理系统-知乐博客</title>
 </head>
+<%
+	String loginName= UserManager.getCurrentSysUser().getLogin_name();
+%>
 <body class="main_body">
 	<div class="layui-layout layui-layout-admin">
 		<!-- 顶部 -->
@@ -59,7 +64,7 @@
 					<li class="layui-nav-item" pc>
 						<a href="javascript:;">
 							<img src="${ctx}static/images/userface4.jpg" class="layui-circle" width="35" height="35">
-							<cite>管理员</cite>
+							<cite> <%=loginName%></cite>
 						</a>
 						<dl class="layui-nav-child">
 							<dd><a href="javascript:;" data-url="page/user/userInfo.html"><i class="iconfont icon-zhanghu" data-icon="icon-zhanghu"></i><cite>个人资料</cite></a></dd>
@@ -75,7 +80,7 @@
 		<div class="layui-side layui-bg-black">
 			<div class="user-photo">
 				<a class="img" title="我的头像" ><img src="${ctx}static/images/userface4.jpg"></a>
-				<p>你好！<span class="userName">管理员</span>, 欢迎登录</p>
+				<p>你好！<span style="font-size: 16px;" class="userName"> <%=loginName%></span>, 欢迎登录</p>
 			</div>
 			<div class="navBar layui-side-scroll"></div>
 		</div>

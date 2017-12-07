@@ -1,9 +1,8 @@
 package net.ssm.system.web.service;
 
-import java.util.List;
-
-
 import net.ssm.system.web.pojo.SysRole;
+
+import java.util.List;
 
 public interface SysRoleService {
 	/**
@@ -17,4 +16,6 @@ public interface SysRoleService {
 	SysRole selectByPrimaryKey(Long id);
 	
 	int updateByPrimaryKeySelective(SysRole role);
+
+	int updateByPrimaryKey(SysRole record);
 }

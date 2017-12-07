@@ -34,16 +34,13 @@ public class MenuController {
 	public ModelAndView index(Integer pageNo,Integer pageSize,String keyWords) {
 		SearchVo searchVo=new SearchVo();
 		searchVo.setKeyWords(keyWords);
-		pageNo=pageNo==null?1:pageNo;
 		searchVo.setPageNo(pageNo);
-		pageSize=pageSize==null?5:pageSize;
 		searchVo.setPageSize(pageSize);
-		PageInfo<SysMenu> itemsList = sysMenuService.GetPageMenuList(searchVo);
+		PageInfo<SysMenu> items = sysMenuService.GetPageMenuList(searchVo);
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("itemsList", itemsList.getList());
-		modelAndView.addObject("totalPage", itemsList.getPages());
+		modelAndView.addObject("items", items);
 		modelAndView.addObject("keyWords", keyWords);
-		modelAndView.addObject("currPage", pageNo);
+
 		// 指定逻辑视图名itemsList.jsp
 		modelAndView.setViewName("menu/menulist");
 
@@ -105,7 +102,6 @@ public class MenuController {
 				msg="添加成功";
 				result=true;
 			}
-			
 		}
 		else {
 			//修改
@@ -117,10 +113,8 @@ public class MenuController {
 			}
 				
 		}
-		 
 		resultmap.put("result", result);
 		resultmap.put("msg", msg);
-		 
 		return resultmap;
 	}
 }

@@ -83,17 +83,20 @@ public class SysUser {
 	public void setUpdate_at(Date update_at) {
 		this.update_at = update_at;
 	}
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	private Long  id;
     private String login_name;
     private String password;
     private String email;
     private String name;
     private String mobile;
-    private enum status{
-    	disabled,
-    	enable
-    };
-
+    private String status;
 	private String login_ip;
     private Date longin_time;
     private int longin_times;

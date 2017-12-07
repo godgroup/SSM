@@ -10,7 +10,7 @@
 <body class="childrenBody">
 	<form method="post" ACTION="${ctx}menu/menulist" id="myform">
 		<input type="hidden" name="pageNo" id="currpage" value="1">
-		<input type="hidden" name="pageSize" value="5">
+		<input type="hidden" name="pageSize" value="10">
 		<input type="hidden" name="keyWords" >
 	</form>
 	<blockquote class="layui-elem-quote news_search">
@@ -57,7 +57,7 @@
 				</tr>
 			</thead>
 			<tbody class="news_content">
-				<c:forEach items="${itemsList}" var="item">
+				<c:forEach items="${items.list}" var="item">
 					<tr>
 						<td><input type="checkbox" name="checked" lay-skin="primary"
 							lay-filter="choose">
@@ -72,7 +72,7 @@
 						<td>${item.status}</td><td>${item.remarks}</td>
 						<td><fmt:formatDate value="${item.create_at}"
 								pattern="yyyy-MM-dd HH:mm:ss" /></td>
-						<td><a data-id="${item.id }" class="layui-btn layui-btn-mini linksAdd_btn"><i
+						<td><a data-id="${item.id }" class="layui-btn layui-btn-mini menuAdd_btn"><i
 								class="iconfont icon-edit "></i> 编辑</a>
 							<a class="layui-btn layui-btn-danger layui-btn-mini news_del"
 							data-id="1"><i class="layui-icon"></i> 禁用</a></td>
@@ -86,8 +86,8 @@
 	</div>
 	<div id="page" style="margin:0 auto; "></div>
 	<script>
-		var total=${totalPage };
-		var currPage=${currPage };
+		var total=${items.pages };
+		var currPage=${items.pageNum };
 	</script>
 	<script type="text/javascript" src="${ctx}static/page/menu/menulist.js" ></script>
 </body>
