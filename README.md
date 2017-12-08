@@ -4,6 +4,8 @@
 2. spring 4.2 mysql 
 3. layui
 ## 项目演示地址
-http://book.yalunwang.com/SSM/
+1. http://book.yalunwang.com/SSM/
+2. 用户名 :yalunwang
+3. 密码 ： 123456
 
 
