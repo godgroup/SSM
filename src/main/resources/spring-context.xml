@@ -15,8 +15,10 @@
 	<context:component-scan base-package="net.ssm.**.web.service">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
+
 	<!-- 读取属性文件 -->
 	<context:property-placeholder ignore-unresolvable="true" local-override="true" location="classpath:db.properties" />
+	<bean id="logAdvices" class="net.ssm.core.log.LogAdvices"></bean>
 	<!-- 阿里 druid数据库连接池 -->
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
 		<!-- 数据库基本信息配置 -->

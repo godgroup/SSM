@@ -188,7 +188,7 @@
   <select id="selectSysMenuList" parameterType="net.ssm.system.web.pojo.common.SearchVo" resultType="net.ssm.system.web.pojo.SysMenu">
     select
     <include refid="Base_Column_List" />
-    from sys_menu where 1=1
+    from sys_menu where status='enable'
     <if test="KeyWords != null and KeyWords!='' " >
       and  name like CONCAT("%",#{KeyWords,jdbcType=VARCHAR},"%")
     </if>

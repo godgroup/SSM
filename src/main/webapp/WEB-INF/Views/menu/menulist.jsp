@@ -25,9 +25,7 @@
 			<a class="layui-btn layui-btn-normal menuAdd_btn">添加</a>
 		</div>
 		
-		<div class="layui-inline">
-			<a class="layui-btn layui-btn-danger batchDel">批量禁用</a>
-		</div>
+
 		
 	</blockquote>
 	<div class="layui-form news_list">
@@ -74,7 +72,7 @@
 								pattern="yyyy-MM-dd HH:mm:ss" /></td>
 						<td><a data-id="${item.id }" class="layui-btn layui-btn-mini menuAdd_btn"><i
 								class="iconfont icon-edit "></i> 编辑</a>
-							<a class="layui-btn layui-btn-danger layui-btn-mini news_del"
+							<a class="layui-btn layui-btn-danger layui-btn-mini menu_del"
 							data-id="1"><i class="layui-icon"></i> 禁用</a></td>
 					</tr>
 					<tr>

@@ -31,7 +31,7 @@ public class MenuController {
 	 * @return
 	 */
 	@RequestMapping(value = "menulist")
-	public ModelAndView index(Integer pageNo,Integer pageSize,String keyWords) {
+	public ModelAndView menulist(Integer pageNo,Integer pageSize,String keyWords) {
 		SearchVo searchVo=new SearchVo();
 		searchVo.setKeyWords(keyWords);
 		searchVo.setPageNo(pageNo);

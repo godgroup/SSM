@@ -62,16 +62,34 @@ layui.config({
     $(".search_btn").click(function (){
         myform();
     })
-    $("body").on("click",".links_del",function(){  //删除
+    $("body").on("click",".menu_del",function(){  //删除
         var _this = $(this);
-        layer.confirm('确定删除此信息？',{icon:3, title:'提示信息'},function(index){
-            //_this.parents("tr").remove();
-            for(var i=0;i<linksData.length;i++){
-                if(linksData[i].linksId == _this.attr("data-id")){
-                    linksData.splice(i,1);
-                    linksList(linksData);
+
+        layer.confirm('确定禁用此菜单吗？',{icon:3, title:'提示信息'},function(index){
+            $.ajax({
+                type: 'post',
+                url: ctx+'menu/addSysMenu',
+                dataType:"json",
+                data:$("form").serialize(),
+                success: function (outResult) {
+                    top.layer.close(index);
+
+                    if (outResult.result) {
+                        top.layer.msg(outResult.msg, { icon: 6 });
+                        parent.location.reload();//location.reload(true);
+                    } else {
+                        if (outResult.msg != undefined) {
+                            top.layer.msg(outResult.msg, { icon: 5 });
+                        } else {
+                            top.layer.msg('程序异常', { icon: 5 });
+                        }
+                    }
+                },
+                error: function (outResult) {
+                    layer.close(index);
+                    layer.msg("请求异常", { icon: 2 });
                 }
-            }
+            });
             layer.close(index);
         });
     })
