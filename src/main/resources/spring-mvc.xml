@@ -13,6 +13,7 @@
 	<context:component-scan base-package="net.ssm.**.web.controller">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
+
 	<aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
 	<!-- 默认的注解驱动映射的支持 -->
 	<mvc:annotation-driven>
