@@ -135,6 +135,7 @@
 				/admin/userlist= login
 				/admin/loginValidate = anon
 				/static/** = anon
+				/quartz/**=anon
 				/common/unauthorize = anon
 				/menu/getNodes = anon
 				/** = login,permission

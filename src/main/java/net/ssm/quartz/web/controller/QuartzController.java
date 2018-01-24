@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,14 +35,11 @@ public class QuartzController {
      * @return
      * @throws SchedulerException
      */
-    @RequestMapping(value="listjob")
-    public ModelAndView listJob() throws SchedulerException {
-        ModelAndView modelAndView = new ModelAndView();
+    @RequestMapping(value="/listJob")
+    public String listJob(HttpServletRequest request,HttpServletResponse response) throws SchedulerException {
         List<JobEntity> jobInfos = this.getSchedulerJobInfo();
-
-        modelAndView.addObject("jobInfos", jobInfos);
-        modelAndView.setViewName("quartz/listjob");
-        return modelAndView;
+        request.setAttribute("jobInfos", jobInfos);
+        return "quartz/listjob";
     }
 
     /**
@@ -246,5 +242,6 @@ public class QuartzController {
         }
         return jobInfos;
     }
+
 
 }
