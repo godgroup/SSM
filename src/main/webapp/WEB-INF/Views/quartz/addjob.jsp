@@ -5,54 +5,68 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    
-    <title>新增任务</title>
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
+      <title>新增任务</title>
+      <%@ include file="/include/lib.jsp" %>
+      <link rel="stylesheet" href="${ctx}static/css/news.css" media="all" />
   </head>
-  
-  <body style="background: beige; margin: 300px 600px 200px;" >
-  <form action="${pageContext.request.contextPath }/quartz/add" method="post">
+
+  <body class="childrenBody">
+  <form  class="layui-form" style="width:80%;" action="${pageContext.request.contextPath }/quartz/add" method="post">
   <span>新增Trigger</span>
 	<hr/>
-   <table id="table_report" class="table table-striped table-bordered table-hover">
-   <tr>
-   		<td>cron</td><td><input type="text" name="cron" value=""/></td>
-   </tr>
-   <tr>
-   		<td>clazz</td><td><input type="text" name="clazz" value=""/></td>
-   </tr>
-   <tr>
-   		<td>jobName</td><td><input type="text" name="jobName" value=""/></td>
-   </tr>
-   <tr>
-   		<td>jobGroupName</td><td><input type="text" name="jobGroupName" value=""/></td>
-   </tr>
-   <tr>
-  		 <td>triggerName</td><td><input type="text" name="triggerName" value=""/></td>
-   </tr>
-   <tr>
-  		 <td>triggerGroupName</td><td><input type="text" name="triggerGroupName" value=""/></td>
-   </tr>
-   <tr>
-   	<td></td>
-   	<td>
-   		<button type="submit" style="border: 0;background-color: #428bca;">提交</button>
-   		<button class="cancel" style="border: 0;background-color: #fff;">返回</button>
-   	</td>
-    </tr>
-</table>
+      <div class="layui-form-item">
+          <label class="layui-form-label">cron表达式</label>
+          <div class="layui-input-block">
+              <input type="text" class="layui-input linksName" value="${item.name}" name="cron" lay-verify="required" placeholder="请输入cron表达式">
+          </div>
+      </div>
+      <div class="layui-form-item">
+          <label class="layui-form-label">clazz</label>
+          <div class="layui-input-block">
+              <input type="text" class="layui-input linksName" value="${item.name}" name="clazz" lay-verify="required" placeholder="请输入clazz">
+          </div>
+      </div>
+      <div class="layui-form-item">
+          <label class="layui-form-label">jobName</label>
+          <div class="layui-input-block">
+              <input type="text" class="layui-input linksName" value="${item.name}" name="jobName" lay-verify="required" placeholder="请输入jobName">
+          </div>
+      </div>
+      <div class="layui-form-item">
+          <label class="layui-form-label">jobGroupName</label>
+          <div class="layui-input-block">
+              <input type="text" class="layui-input linksName" value="${item.name}" name="jobGroupName" lay-verify="required" placeholder="请输入jobGroupName">
+          </div>
+      </div>
+      <div class="layui-form-item">
+          <label class="layui-form-label">triggerName</label>
+          <div class="layui-input-block">
+              <input type="text" class="layui-input linksName" value="${item.name}" name="triggerName" lay-verify="required" placeholder="请输入triggerName">
+          </div>
+      </div>
+      <div class="layui-form-item">
+          <label class="layui-form-label">triggerGroupName</label>
+          <div class="layui-input-block">
+              <input type="text" class="layui-input linksName" value="${item.name}" name="triggerGroupName" lay-verify="required" placeholder="请输入triggerGroupName">
+          </div>
+      </div>
+      <div class="layui-form-item">
+          <div class="layui-input-block">
+              <button type="submit" class="layui-btn">提交</button>
+              <button class="layui-btn layui-btn-primary cancel"  type="button" style="border: 0;background-color: #fff;">返回</button>
+
+          </div>
+      </div>
+
   </form>
   </body>
 </html>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery.min.js"></script>
 <script>
 $(document).ready(function() {
+    var url = "${pageContext.request.contextPath}";
 	$(".cancel").click(function(){
-		history.go(-1) ;
+        window.location.href = url + "/quartz/listjob";
 	});
 });
 </script>

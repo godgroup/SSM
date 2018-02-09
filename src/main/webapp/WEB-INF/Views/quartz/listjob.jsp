@@ -1,31 +1,22 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE html>
 <html>
-  <head>
+<head>
+    <%@ include file="/include/lib.jsp" %>
     <title>任务列表</title>
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<style type="text/css">
-		table{width: 90%;margin: 0 auto;text-align: center;border-right:1px solid #999;border-bottom: 1px solid #999;}
-		table tr{}
-		table td,table th{border-left: 1px solid #999;border-top: 1px solid #999;}
-		.btn{border: 0;border-radius:4px;background-color: #428bca;color: #fff;padding: 3px 5px;cursor: pointer;}
-	</style>
-  </head>
-  
-  <body style="background: beige;">
-  <div style="text-align: center;">
-  	<span>欢迎${name }登录！</span>
-  	<span><a href="${pageContext.request.contextPath }/user/logout">退出</a></span>
-  </div>
+    <link rel="stylesheet" href="${ctx}static/css/news.css" media="all" />
+    <style type="text/css">
+        table{width: 90%;margin: 0 auto;text-align: center;border-right:1px solid #999;border-bottom: 1px solid #999;}
+        table tr{}
+        table td,table th{border-left: 1px solid #999;border-top: 1px solid #999;}
+        .btn{border: 0;border-radius:4px;background-color: #428bca;color: #fff;padding: 3px 5px;cursor: pointer;}
+    </style>
+</head>
+<body class="childrenBody">
+
   <h2 style="text-align: center;">任务列表</h2>
-   <table id="table_report" class="table table-striped table-bordered table-hover" cellpadding="0" cellspacing="0">
+  <div class="layui-form news_list">
+   <table id="table_report"class="layui-table" cellpadding="0" cellspacing="0">
                     <thead>
                         <tr>
                             <!-- th class="center">序号</th-->
@@ -107,7 +98,7 @@
                         </c:choose>
                     </tbody>
                 </table>
- 
+  </div>
   <div style="width: 90%;margin: 0 auto;text-align: center;margin-top: 25px;">
   	<button type="button" onclick="add();" class="btn">新增任务</button>
   </div>

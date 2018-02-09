@@ -94,9 +94,9 @@ public class QuartzServiceImpl implements QuartzService {
             }
             String oldTime = trigger.getCronExpression();
             if (!oldTime.equalsIgnoreCase(time)) {
-                CronTrigger ct = (CronTrigger) trigger;
+                //CronTrigger ct = (CronTrigger) trigger;
                 // 修改时间
-                ct.getTriggerBuilder()
+                trigger.getTriggerBuilder()
                         .withSchedule(CronScheduleBuilder.cronSchedule(time))
                         .build();
                 // 重启触发器
