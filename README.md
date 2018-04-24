@@ -1,5 +1,5 @@
 ## 项目简介
-1. 图书管理系统 权限管理系统
+1. 通用的后台管理系统(权限 登录 作业管理)
 1. spring springmvc mybatis项目
 2. spring 4.2 
 3. shiro 
