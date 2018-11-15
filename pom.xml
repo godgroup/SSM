@@ -8,7 +8,7 @@
     <name>SSM Maven Webapp</name>
     <url>http://maven.apache.org</url>
 
-    <dependencyManagement>
+     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.godgroup.framework</groupId>
@@ -165,7 +165,8 @@
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
          </dependency>
-        <dependency>
+         
+           <dependency>
             <groupId>org.restlet.jse</groupId>
             <artifactId>org.restlet</artifactId>
          </dependency>
@@ -310,6 +311,9 @@
                     <httpConnector>
                         <port>8081</port>
                     </httpConnector>
+                    <webApp>
+                        <contextPath>/SSM</contextPath>
+                    </webApp>
                 </configuration>
             </plugin>
         </plugins>
