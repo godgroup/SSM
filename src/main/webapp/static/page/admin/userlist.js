@@ -2,7 +2,7 @@
  * Created by user on 2017/11/16.
  */
 layui.config({
-    base : "/SSM/static/js/"
+    base : "/static/js/"
 }).use(['form','layer','jquery','laypage'],function(){
     var form = layui.form(),
         layer = parent.layer === undefined ? layui.layer : parent.layer,

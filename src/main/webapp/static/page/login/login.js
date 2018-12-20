@@ -15,7 +15,7 @@ layui.config({
 	
 	//登录按钮事件
 	form.on("submit(login)",function(data){
-		$.post('/SSM/admin/loginValidate',$('#forms').serialize(),function(result){
+		$.post('/admin/loginValidate',$('#forms').serialize(),function(result){
 			if(result.result){
 				window.location.href=ctx+'home/index';
 			}else{

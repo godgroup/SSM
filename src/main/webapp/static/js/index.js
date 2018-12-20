@@ -1,6 +1,6 @@
 var $,tab,skyconsWeather;
 layui.config({
-	base : "/SSM/static/js/"
+	base : "/static/js/"
 }).use(['bodyTab','form','element','layer','jquery'],function(){
 	var form = layui.form(),
 		layer = layui.layer,
@@ -8,7 +8,7 @@ layui.config({
 		$ = layui.jquery;
 		tab = layui.bodyTab({
 			openTabNum : "50",  //最大可打开窗口数量
-			url : "/SSM/menu/getNodes?type=1" //获取菜单json地址
+			url : "/menu/getNodes?type=1" //获取菜单json地址
 		});
 
 	//更换皮肤
@@ -129,13 +129,13 @@ layui.config({
 		$.ajax({
 			//contentType: "application/json",
 			type: 'post',
-			url: '/SSM/admin/logout',
+			url: '/admin/logout',
 			dataType:"json",
 			data: {},
 			success: function (outResult) {
 				if (outResult.result) {
 					layer.msg(outResult.msg, { icon: 6 });
-					location.href="/SSM/admin/login";
+					location.href="/admin/login";
 				} else {
 					if (outResult.msg != undefined) {
 						layer.msg(outResult.msg, { icon: 5 });

@@ -8,7 +8,7 @@
  * Created by user on 2017/11/14.
  */
 layui.config({
-    base : "/SSM/static/js/"
+    base : "/static/js/"
 }).use(['layer','form','jquery'],function(){
     var layer = parent.layer === undefined ? layui.layer : parent.layer,
 
@@ -29,7 +29,7 @@ layui.config({
         $.ajax({
             //contentType: "application/json",
             type: 'post',
-            url: '/SSM/userRole/doSetUserRole',
+            url: '/userRole/doSetUserRole',
             dataType:"json",
             data: {"uid":uid,"roles":roles},
             success: function (outResult) {

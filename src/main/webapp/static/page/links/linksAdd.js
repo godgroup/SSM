@@ -1,5 +1,5 @@
 layui.config({
-	base : "/SSM/static/js/"
+	base : "/static/js/"
 }).use(['form','layer','jquery','layedit','laydate','tree','treeselect'],function(){
 	var form = layui.form(),
 		layer = parent.layer === undefined ? layui.layer : parent.layer,
@@ -12,7 +12,7 @@ layui.config({
 	//创建一个编辑器
  	var editIndex = layedit.build('links_content');
  	var addLinksArray = [],addLinks;
- 	var url="/SSM/menu/getNodes";
+ 	var url="/menu/getNodes";
  	var parm=GetQueryString("id");
  	if(parm!=null)
  	{
@@ -55,7 +55,7 @@ layui.config({
              //contentType: "application/json",
              type: 'post',
              async: false,
-             url: '/SSM/menu/addSysMenu',
+             url: '/menu/addSysMenu',
              dataType:"json", 
              data:$("form").serialize(),
              success: function (outResult) {

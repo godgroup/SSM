@@ -1,5 +1,5 @@
 layui.config({
-	base : "/SSM/static/js/"
+	base : "/static/js/"
 }).use(['form','layer','jquery','laypage'],function(){
 	var form = layui.form(),
 		layer = parent.layer === undefined ? layui.layer : parent.layer,

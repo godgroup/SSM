@@ -5,7 +5,7 @@
  * Created by user on 2017/11/14.
  */
 layui.config({
-    base : "/SSM/static/js/"
+    base : "/static/js/"
 }).use(['layer','jquery','treecheck',],function(){
     var layer = parent.layer === undefined ? layui.layer : parent.layer,
 
@@ -137,7 +137,7 @@ layui.config({
        $.ajax({
            //contentType: "application/json",
            type: 'post',
-           url: '/SSM/roleMenu/doSetRoleMenu',
+           url: '/roleMenu/doSetRoleMenu',
            dataType:"json",
            data: {"roleId":roleId,"roleName":roleName,"menus":menus},
            success: function (outResult) {

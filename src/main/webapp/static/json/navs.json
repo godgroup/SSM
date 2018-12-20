@@ -1,23 +1,23 @@
 [{
 	"title" : "后台首页",
 	"icon" : "icon-computer",
-	"href" : "/SSM/admin/userlist",
+	"href" : "/admin/userlist",
 	"spread" : false
 },{
 	"title" : "文章列表",
 	"icon" : "icon-text",
-	"href" : "/SSM/admin/userlist1",
+	"href" : "/admin/userlist1",
 	"spread" : false
 },{
 	"title" : "友情链接",
 	"icon" : "&#xe64c;",
-	"href" : "/SSM/admin/userlist2",
+	"href" : "/admin/userlist2",
 	"spread" : false
 },
 {
 	"title" : "菜单列表111",
 	"icon" : "&#xe64c;",
-	"href" : "/SSM/menu/menulist",
+	"href" : "/menu/menulist",
 	"spread" : false
 },{
 	"title" : "系统基本参数",
