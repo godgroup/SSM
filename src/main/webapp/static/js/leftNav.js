@@ -28,7 +28,7 @@ function navBar(strData){
 			ulHtml += '<dl class="layui-nav-child">';
 			for(var j=0;j<data[i].children.length;j++){
 				if(data[i].children[j].target == "_blank"){
-					ulHtml += '<dd><a href="javascript:;" data-url="'ctx+data[i].children[j].href+'" target="'+data[i].children[j].target+'">';
+					ulHtml += '<dd><a href="javascript:;" data-url="'+data[i].children[j].href+'" target="'+data[i].children[j].target+'">';
 				}else{
 					ulHtml += '<dd><a href="javascript:;" data-url="'+data[i].children[j].href+'">';
 				}
